@@ -3,338 +3,916 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>덴딜몰 - 치과 재료 발주의 새로운 기준</title>
+<title>덴딜몰 - 발주 방식을 바꾸면 재료비가 보입니다</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-</head>
-<body style="margin:0;padding:0;">
+<style>
+  :root {
+    --dendeal-blue: #3B5BDB;
+    --dendeal-blue-dark: #2B4BC6;
+    --dendeal-blue-light: #EDF2FF;
+    --dendeal-navy: #1E2A5E;
+    --sage-1: #E8EDE4;
+    --sage-2: #D5DDD0;
+    --sage-3: #C2CFBB;
+    --dark: #0F1629;
+    --g9: #212529;
+    --g7: #495057;
+    --g5: #868E96;
+    --g3: #DEE2E6;
+    --g1: #F8F9FA;
+    --white: #FFFFFF;
+    --green: #40C057;
+    --red: #FA5252;
+    --coral: #FF6B6B;
+    --teal: #20C997;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans KR',-apple-system,sans-serif;color:var(--g9);background:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
-<div style="width:100%;overflow-x:hidden;font-family:'Noto Sans KR',-apple-system,sans-serif;color:#212529;margin:0;padding:0;">
+  /* ===== UTILITY ===== */
+  section{padding:clamp(56px,8vw,100px) clamp(16px,4vw,24px)}
+  .section-inner{max-width:1040px;margin:0 auto;width:100%}
+  .section-label{font-size:clamp(24px,4vw,34px);font-weight:900;background:linear-gradient(135deg,var(--dendeal-blue),#5C7CFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:clamp(8px,1.5vw,12px);font-style:italic;letter-spacing:-1px}
+  .section-subtitle{font-size:clamp(21px,3.5vw,34px);font-weight:700;line-height:1.45;margin-bottom:clamp(8px,1.5vw,12px);color:var(--g9)}
+  .section-subtitle b{font-weight:900}
+  .section-desc{font-size:clamp(14px,1.8vw,16px);color:var(--g5);line-height:1.7;margin-bottom:clamp(32px,5vw,48px)}
+
+  /* ===== HERO ===== */
+  .hero{min-height:100svh;background:radial-gradient(ellipse 80% 60% at 20% 80%,rgba(32,201,151,.12) 0%,transparent 60%),radial-gradient(ellipse 70% 50% at 80% 20%,rgba(59,91,219,.1) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 50% 50%,rgba(194,207,187,.3) 0%,transparent 70%),linear-gradient(160deg,#E8EDE4 0%,#DDE5D8 25%,#D0DAC9 50%,#C8D4BF 75%,#BCC9B3 100%);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:clamp(40px,6vw,60px) clamp(16px,4vw,24px)}
+  .hero::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle 1.5px,rgba(59,91,219,.07) 100%,transparent 100%);background-size:clamp(24px,3vw,32px) clamp(24px,3vw,32px);mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black 20%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black 20%,transparent 70%)}
+  .hero-orb{position:absolute;border-radius:50%;filter:blur(1px)}
+  .hero-orb-1{width:clamp(250px,50vw,650px);height:clamp(250px,50vw,650px);top:-15%;right:-10%;background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.55),rgba(255,255,255,.05) 70%);border:1px solid rgba(255,255,255,.3);animation:orbF1 14s ease-in-out infinite alternate}
+  .hero-orb-2{width:clamp(160px,32vw,420px);height:clamp(160px,32vw,420px);bottom:-8%;left:-8%;background:radial-gradient(circle at 60% 30%,rgba(59,91,219,.1),rgba(32,201,151,.05) 70%);border:1px solid rgba(255,255,255,.2);animation:orbF2 11s ease-in-out infinite alternate-reverse}
+  .hero-orb-3{width:clamp(100px,16vw,200px);height:clamp(100px,16vw,200px);top:25%;left:10%;background:radial-gradient(circle at 40% 40%,rgba(255,255,255,.4),transparent 70%);animation:orbF3 9s ease-in-out infinite alternate}
+  .deco-ring{position:absolute;border-radius:50%;border:1px solid rgba(59,91,219,.08)}
+  .deco-ring-1{width:clamp(150px,24vw,300px);height:clamp(150px,24vw,300px);top:15%;right:8%;animation:ringP 6s ease-in-out infinite}
+  .deco-ring-2{width:clamp(90px,14vw,180px);height:clamp(90px,14vw,180px);bottom:20%;left:5%;border-color:rgba(32,201,151,.1);animation:ringP 8s ease-in-out infinite reverse}
+  .deco-diamond{position:absolute;background:rgba(59,91,219,.1);transform:rotate(45deg);border-radius:2px}
+  .dd-1{width:clamp(8px,1vw,12px);height:clamp(8px,1vw,12px);top:18%;left:25%;animation:fSpin 12s linear infinite}
+  .dd-2{width:clamp(6px,.8vw,8px);height:clamp(6px,.8vw,8px);top:65%;right:15%;animation:fSpin 15s linear infinite reverse;background:rgba(32,201,151,.12)}
+  .dd-3{width:clamp(4px,.6vw,6px);height:clamp(4px,.6vw,6px);top:40%;right:30%;animation:fSpin 10s linear infinite;background:rgba(59,91,219,.06)}
+  .dd-4{width:clamp(7px,.9vw,10px);height:clamp(7px,.9vw,10px);bottom:30%;left:35%;animation:fSpin 18s linear infinite reverse;background:rgba(255,255,255,.4)}
+  @keyframes orbF1{0%{transform:translate(0,0) scale(1) rotate(0)}100%{transform:translate(-30px,25px) scale(1.04) rotate(3deg)}}
+  @keyframes orbF2{0%{transform:translate(0,0) scale(1)}100%{transform:translate(25px,-20px) scale(1.06)}}
+  @keyframes orbF3{0%{transform:translate(0,0)}100%{transform:translate(15px,-15px)}}
+  @keyframes ringP{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.08);opacity:1}}
+  @keyframes fSpin{0%{transform:rotate(45deg) translateY(0);opacity:.5}50%{opacity:1}100%{transform:rotate(405deg) translateY(-20px);opacity:.5}}
+
+  .hero-content{position:relative;z-index:3;text-align:center;width:100%;max-width:860px}
+  .hero-logo{display:inline-flex;align-items:center;gap:clamp(6px,1vw,10px);margin-bottom:clamp(24px,4vw,48px);animation:fadeInD .8s ease-out}
+  .logo-icon{width:clamp(36px,4.5vw,48px);height:clamp(36px,4.5vw,48px);background:linear-gradient(135deg,var(--dendeal-blue),#5C7CFA);border-radius:clamp(8px,1.2vw,12px);display:flex;align-items:center;justify-content:center;color:white;font-weight:900;font-size:clamp(10px,1.3vw,14px);box-shadow:0 4px 16px rgba(59,91,219,.3)}
+  .logo-text{font-size:clamp(20px,3vw,28px);font-weight:300;color:var(--g7);letter-spacing:2px}
+  .hero-tagline{display:inline-flex;align-items:center;gap:clamp(6px,1vw,12px);background:linear-gradient(135deg,var(--dendeal-blue),#4C6FE0);border-radius:100px;padding:clamp(8px,1.2vw,14px) clamp(16px,2.5vw,32px);margin-bottom:clamp(24px,4vw,48px);animation:fadeInU .8s ease-out .2s both;box-shadow:0 6px 24px rgba(59,91,219,.25)}
+  .hero-tagline .tag-label{background:white;color:var(--dendeal-blue);font-size:clamp(9px,1.1vw,12px);font-weight:900;padding:clamp(2px,.4vw,4px) clamp(8px,1.2vw,12px);border-radius:100px}
+  .hero-tagline .tag-text{color:white;font-size:clamp(11px,1.4vw,15px);font-weight:500}
+  .hero-tagline .tag-text b{font-weight:900}
+  .hero h1{font-size:clamp(26px,5.5vw,52px);font-weight:900;color:var(--g9);line-height:1.35;margin-bottom:clamp(12px,2vw,20px);animation:fadeInU .8s ease-out .3s both}
+  .hero h1 .blue{background:linear-gradient(135deg,var(--dendeal-blue),#5C7CFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .hero-sub{font-size:clamp(14px,2.2vw,18px);color:var(--g5);line-height:1.8;margin-bottom:clamp(28px,5vw,48px);font-weight:400;animation:fadeInU .8s ease-out .4s both}
+  .hero-cta-group{display:flex;gap:clamp(10px,1.5vw,14px);justify-content:center;flex-wrap:wrap;animation:fadeInU .8s ease-out .6s both}
+  .btn-blue{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--dendeal-blue),#4C6FE0);color:white;padding:clamp(12px,1.8vw,16px) clamp(24px,3.5vw,36px);border-radius:12px;font-size:clamp(14px,1.6vw,16px);font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:all .3s;box-shadow:0 6px 24px rgba(59,91,219,.3);font-family:inherit}
+  .btn-blue:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(59,91,219,.4)}
+  .btn-outline{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.65);color:var(--g7);padding:clamp(12px,1.8vw,16px) clamp(24px,3.5vw,36px);border-radius:12px;font-size:clamp(14px,1.6vw,16px);font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.8);cursor:pointer;transition:all .3s;backdrop-filter:blur(10px);font-family:inherit}
+  .btn-outline:hover{background:white;border-color:var(--dendeal-blue);color:var(--dendeal-blue);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+  @keyframes fadeInU{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeInD{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ===== WHY ===== */
+  .why-section{background:var(--dark);color:white;position:relative;overflow:hidden}
+  .why-section::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(59,91,219,.03) 40px,rgba(59,91,219,.03) 41px)}
+  .why-section::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 0% 100%,rgba(59,91,219,.12),transparent),radial-gradient(ellipse 50% 40% at 100% 0%,rgba(92,124,250,.08),transparent)}
+  .why-inner{position:relative;z-index:2}
+  .why-section .section-label{background:linear-gradient(135deg,rgba(255,255,255,.4),rgba(255,255,255,.7));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .why-section .section-subtitle{color:white}
+  .why-section .section-subtitle b{color:var(--g3)}
+  .why-deco-arc{position:absolute;border:1px solid rgba(59,91,219,.1);border-radius:50%}
+  .why-deco-arc-1{width:clamp(200px,30vw,400px);height:clamp(200px,30vw,400px);top:-50%;right:-15%;border-width:2px;border-color:rgba(59,91,219,.06)}
+  .why-deco-arc-2{width:clamp(120px,20vw,250px);height:clamp(120px,20vw,250px);top:-30%;right:-10%;border-color:rgba(92,124,250,.08)}
+  .why-deco-arc-3{width:clamp(150px,24vw,300px);height:clamp(150px,24vw,300px);bottom:-30%;left:-10%;border-color:rgba(32,201,151,.06)}
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.5vw,16px);margin-top:clamp(32px,5vw,48px)}
+  .why-card{background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:clamp(12px,1.5vw,16px);padding:clamp(20px,3vw,32px);transition:all .3s;backdrop-filter:blur(4px);position:relative;overflow:hidden}
+  .why-card::after{content:'';position:absolute;top:0;right:0;width:120px;height:120px;background:radial-gradient(circle at 100% 0%,rgba(59,91,219,.08),transparent 70%);border-radius:0 16px 0 0}
+  .why-card:hover{background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.04));transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.3);border-color:rgba(59,91,219,.2)}
+  .why-card .wc-icon{font-size:clamp(22px,3vw,28px);margin-bottom:clamp(10px,1.5vw,16px);position:relative;z-index:2}
+  .why-card h3{font-size:clamp(14px,1.8vw,17px);font-weight:800;color:white;margin-bottom:8px;position:relative;z-index:2}
+  .why-card p{font-size:clamp(12px,1.4vw,14px);color:rgba(255,255,255,.5);line-height:1.7;position:relative;z-index:2}
+  .why-bottom{text-align:center;margin-top:clamp(32px,5vw,48px);padding-top:clamp(28px,4vw,40px);border-top:1px solid rgba(255,255,255,.06)}
+  .why-bottom p{font-size:clamp(15px,2vw,18px);color:rgba(255,255,255,.5);line-height:1.8}
+  .why-bottom p b{color:white;font-weight:800}
+
+  /* ===== HOW ===== */
+  .how-section{background:var(--white);position:relative;overflow:hidden}
+  .how-section::before{content:'';position:absolute;top:0;left:0;width:6px;height:100%;background:linear-gradient(to bottom,var(--dendeal-blue),var(--teal),var(--dendeal-blue));opacity:.15}
+  .how-bg-circles{position:absolute;inset:0;background-image:radial-gradient(circle 180px at 90% 20%,rgba(59,91,219,.04),transparent),radial-gradient(circle 120px at 10% 80%,rgba(32,201,151,.04),transparent)}
+  .how-ba-unified{display:grid;grid-template-columns:1fr auto 1fr;margin-top:clamp(32px,5vw,48px);position:relative;z-index:2;background:white;border-radius:clamp(16px,2vw,24px);overflow:hidden;border:2px solid rgba(59,91,219,.08);box-shadow:0 8px 40px rgba(0,0,0,.04)}
+  .ba-side{padding:clamp(24px,3.5vw,36px) clamp(16px,2.5vw,32px) clamp(28px,4vw,40px)}
+  .ba-side-before{background:repeating-linear-gradient(-45deg,transparent,transparent 12px,rgba(0,0,0,.008) 12px,rgba(0,0,0,.008) 13px),linear-gradient(160deg,#F8F9FA,#F1F3F5)}
+  .ba-side-after{background:linear-gradient(160deg,#F0F4FF,#E8F0FE,#F5F8FF);position:relative}
+  .ba-side-after::before{content:'';position:absolute;top:-80px;right:-80px;width:200px;height:200px;background:radial-gradient(circle,rgba(59,91,219,.06),transparent 70%);border-radius:50%}
+  .ba-side-label-wrap{text-align:center;margin-bottom:clamp(18px,2.5vw,28px)}
+  .ba-side-label{display:inline-block;font-size:clamp(11px,1.3vw,13px);font-weight:900;letter-spacing:2px;padding:clamp(4px,.6vw,6px) clamp(14px,2vw,20px);border-radius:100px}
+  .ba-label-before{background:rgba(0,0,0,.06);color:var(--g5)}
+  .ba-label-after{background:linear-gradient(135deg,var(--dendeal-blue),#5C7CFA);color:white;box-shadow:0 3px 12px rgba(59,91,219,.25)}
+  .ba-items{display:flex;flex-direction:column;gap:clamp(10px,1.5vw,16px)}
+  .ba-item-before,.ba-item-after{display:flex;align-items:center;gap:clamp(10px,1.5vw,16px);padding:clamp(14px,2vw,20px);border-radius:clamp(12px,1.5vw,16px);transition:all .3s;position:relative;z-index:2}
+  .ba-item-before{background:rgba(255,255,255,.7);border:1px solid rgba(0,0,0,.04)}
+  .ba-item-before:hover{background:rgba(255,255,255,.9);transform:translateX(-4px)}
+  .ba-item-after{background:rgba(255,255,255,.6);border:1px solid rgba(59,91,219,.08);backdrop-filter:blur(4px)}
+  .ba-item-after:hover{background:rgba(255,255,255,.9);transform:translateX(4px);box-shadow:0 4px 20px rgba(59,91,219,.1)}
+  .ba-item-icon{font-size:clamp(20px,3vw,28px);flex-shrink:0;width:clamp(32px,4.5vw,48px);height:clamp(32px,4.5vw,48px);display:flex;align-items:center;justify-content:center}
+  .ba-item-text{font-size:clamp(13px,1.6vw,15px);line-height:1.55}
+  .ba-item-before .ba-item-text{color:var(--g5)}
+  .ba-item-before .ba-item-text b{color:var(--g7);font-weight:800}
+  .ba-item-after .ba-item-text{color:var(--g7)}
+  .ba-item-after .ba-item-text b{background:linear-gradient(135deg,var(--dendeal-blue),#4C6FE0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:900}
+  .ba-center-divider{display:flex;flex-direction:column;align-items:center;justify-content:center;width:clamp(48px,6vw,72px);background:linear-gradient(180deg,#F1F3F5,#EAECF0 48%,#E0E5F5 52%,#EDF2FF);position:relative}
+  .ba-center-divider::before{content:'';position:absolute;top:0;bottom:0;left:50%;width:1px;background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(59,91,219,.15),rgba(59,91,219,.15),rgba(0,0,0,.06));transform:translateX(-.5px)}
+  .ba-center-line{flex:1}
+  .ba-center-arrow{width:clamp(28px,3.5vw,40px);height:clamp(28px,3.5vw,40px);background:linear-gradient(135deg,var(--dendeal-blue),#5C7CFA);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:clamp(12px,1.5vw,16px);font-weight:900;position:relative;z-index:2;box-shadow:0 4px 16px rgba(59,91,219,.3);margin:clamp(8px,1vw,12px) 0}
+
+  /* ===== QUOTE ===== */
+  .quote-banner{background:linear-gradient(135deg,var(--dendeal-blue) 0%,#4C6FE0 40%,#5C7CFA 70%,#748FFC 100%);padding:clamp(48px,8vw,90px) clamp(16px,4vw,24px);text-align:center;position:relative;overflow:hidden}
+  .quote-banner::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='rgba(255,255,255,.03)' fill-rule='evenodd'/%3E%3C/svg%3E")}
+  .quote-rays{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:conic-gradient(from 0deg,transparent 0deg,rgba(255,255,255,.02) 10deg,transparent 20deg,transparent 40deg,rgba(255,255,255,.015) 50deg,transparent 60deg,transparent 90deg,rgba(255,255,255,.02) 100deg,transparent 110deg,transparent 200deg,rgba(255,255,255,.02) 210deg,transparent 220deg,transparent 320deg,rgba(255,255,255,.02) 330deg,transparent 340deg);animation:raysSpin 60s linear infinite}
+  @keyframes raysSpin{0%{transform:translate(-50%,-50%) rotate(0)}100%{transform:translate(-50%,-50%) rotate(360deg)}}
+  .quote-glow-1{position:absolute;width:clamp(150px,30vw,350px);height:clamp(150px,30vw,350px);top:-20%;right:-5%;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 70%);border-radius:50%}
+  .quote-glow-2{position:absolute;width:clamp(120px,22vw,250px);height:clamp(120px,22vw,250px);bottom:-15%;left:-3%;background:radial-gradient(circle,rgba(116,143,252,.15),transparent 70%);border-radius:50%}
+  .quote-text{font-size:clamp(18px,3.5vw,34px);font-weight:800;color:var(--white);line-height:1.6;max-width:650px;margin:0 auto;position:relative;z-index:2;text-shadow:0 2px 20px rgba(0,0,0,.1)}
+  .quote-text .em{background:rgba(255,255,255,.12);padding:2px clamp(6px,1vw,12px);border-radius:8px;border:1px solid rgba(255,255,255,.1)}
+
+  /* ===== WHAT ===== */
+  .what-section{background:var(--white);position:relative;overflow:hidden}
+  .what-section::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(135deg,rgba(237,242,255,.5) 25%,transparent 25%,transparent 50%,rgba(237,242,255,.5) 50%,rgba(237,242,255,.5) 75%,transparent 75%);background-size:200px 200px;opacity:.4}
+  .what-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.5vw,20px);margin-top:clamp(32px,5vw,48px);position:relative;z-index:2;align-items:stretch}
+  .what-card{background:linear-gradient(160deg,#FAFBFF,#F0F3FF);border-radius:clamp(12px,1.5vw,18px);padding:clamp(16px,2vw,28px) clamp(12px,1.5vw,20px);text-align:center;transition:all .3s;border:2px solid rgba(59,91,219,.06);position:relative;overflow:hidden;display:flex;flex-direction:column}
+  .what-card::before{content:'';position:absolute;top:-40px;right:-40px;width:100px;height:100px;background:linear-gradient(135deg,rgba(59,91,219,.06),transparent);border-radius:50%;transition:all .3s}
+  .what-card:hover{border-color:var(--dendeal-blue);transform:translateY(-6px);box-shadow:0 16px 48px rgba(59,91,219,.12)}
+  .phone-mockup{width:100%;max-width:180px;aspect-ratio:9/16;height:auto;background:white;border-radius:clamp(14px,2vw,22px);border:2.5px solid #E0E0E0;margin:0 auto clamp(12px,1.5vw,18px);overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.08);position:relative;flex-shrink:0}
+  .phone-mockup .phone-header{background:linear-gradient(180deg,#F8F9FA,#F1F3F5);padding:clamp(8px,1.2vw,12px) clamp(10px,1.5vw,16px) clamp(6px,1vw,8px);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--g3)}
+  .phone-mockup .phone-header span{font-size:clamp(8px,1.2vw,11px);font-weight:700;color:var(--g7)}
+  .phone-mockup .phone-tabs{display:flex;border-bottom:1px solid var(--g3);background:white}
+  .phone-mockup .phone-tabs span{flex:1;padding:clamp(5px,.8vw,8px) 0;font-size:clamp(6px,1vw,9px);font-weight:600;color:var(--g5);text-align:center}
+  .phone-mockup .phone-tabs span.active{color:var(--dendeal-blue);border-bottom:2px solid var(--dendeal-blue);font-weight:800}
+  .phone-body{padding:clamp(8px,1.2vw,12px)}
+  .phone-search{display:flex;gap:6px;margin-bottom:10px}
+  .phone-search .ps-btn{background:linear-gradient(135deg,var(--dendeal-blue),#4C6FE0);color:white;padding:4px 8px;border-radius:4px;font-size:clamp(6px,.9vw,8px);font-weight:700;white-space:nowrap}
+  .phone-search .ps-input{flex:1;background:var(--g1);border:1px solid var(--g3);border-radius:4px;padding:4px 8px;font-size:clamp(6px,.9vw,8px);color:var(--g5)}
+  .phone-list-item{display:flex;align-items:center;gap:clamp(4px,.8vw,8px);padding:clamp(5px,.8vw,8px) 0;border-bottom:1px solid var(--g1)}
+  .phone-list-item .pli-img{width:clamp(22px,3.2vw,32px);height:clamp(22px,3.2vw,32px);background:linear-gradient(135deg,var(--sage-1),#DDE5D8);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:clamp(10px,1.4vw,14px);flex-shrink:0}
+  .phone-list-item .pli-info{flex:1;min-width:0}
+  .phone-list-item .pli-name{font-size:clamp(6px,.9vw,8px);font-weight:700;color:var(--g9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .phone-list-item .pli-price{font-size:clamp(5px,.7vw,7px);color:var(--g5)}
+  .phone-list-item .pli-actions{display:flex;gap:3px;flex-shrink:0}
+  .phone-list-item .pli-btn{padding:3px 6px;border-radius:3px;font-size:clamp(5px,.7vw,7px);font-weight:700;border:1px solid var(--g3);color:var(--g7);background:white}
+  .phone-cart-item{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--g1)}
+  .phone-cart-item .pci-info{flex:1}
+  .phone-cart-item .pci-name{font-size:clamp(6px,.9vw,8px);font-weight:700;color:var(--g9)}
+  .phone-cart-item .pci-price{font-size:clamp(5px,.7vw,7px);color:var(--dendeal-blue);font-weight:700}
+  .phone-cart-item .pci-qty{display:flex;align-items:center;gap:4px}
+  .phone-cart-item .pci-qty span{width:clamp(12px,1.6vw,16px);height:clamp(12px,1.6vw,16px);background:var(--g1);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:clamp(6px,.9vw,8px);font-weight:700;color:var(--g7)}
+  .phone-stat-header{text-align:center;padding:10px 0 6px}
+  .phone-stat-header .psh-label{font-size:clamp(6px,.9vw,8px);color:var(--g5)}
+  .phone-stat-header .psh-value{font-size:clamp(14px,2vw,18px);font-weight:900;color:var(--g9)}
+  .phone-stat-header .psh-count{font-size:clamp(6px,.9vw,8px);color:var(--g5)}
+  .mini-chart{display:flex;align-items:flex-end;gap:clamp(2px,.4vw,4px);height:clamp(50px,8vw,80px);padding:12px 8px 0}
+  .mini-bar-group{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end}
+  .mini-bar{width:100%;border-radius:3px 3px 1px 1px;background:linear-gradient(180deg,var(--dendeal-blue),#5C7CFA);transition:height .5s}
+  .mini-bar.highlight{background:linear-gradient(180deg,var(--red),var(--coral))}
+  .mini-bar-label{font-size:clamp(5px,.7vw,7px);color:var(--g5)}
+  .mini-bar-val{font-size:clamp(4px,.6vw,6px);color:var(--g5);font-weight:700}
+  .what-card h3{font-size:clamp(13px,1.6vw,18px);font-weight:900;color:var(--g9);margin-bottom:6px;margin-top:auto;position:relative;z-index:2}
+
+  /* Transform mockup */
+  .transform-mockup{display:flex;align-items:center;justify-content:center;gap:clamp(3px,.5vw,6px);margin:0 auto clamp(12px,1.5vw,18px);min-height:0;flex:1}
+  .tf-before{position:relative;display:flex;flex-direction:column;gap:6px;opacity:.7}
+  .tf-paper{background:#FFFDE7;border:1px solid #E8E0C0;border-radius:6px;padding:clamp(5px,.8vw,8px);width:clamp(68px,10vw,95px);box-shadow:2px 2px 6px rgba(0,0,0,.06);transform:rotate(-3deg)}
+  .tf-paper-title{font-size:clamp(5px,.8vw,7px);font-weight:800;color:#8D6E00;margin-bottom:5px;text-align:center}
+  .tf-paper-row{display:flex;justify-content:space-between;font-size:clamp(4px,.6vw,5.5px);color:#A09060;padding:2px 0;border-bottom:1px dashed rgba(0,0,0,.06);font-weight:700}
+  .tf-paper-row.data{font-weight:500;color:#6B5A30}
+  .tf-scribble{font-size:clamp(4px,.6vw,6px);color:#BBA050;text-align:right;margin-top:3px;font-style:italic}
+  .tf-excel{background:white;border:1px solid #C8D6C0;border-radius:6px;padding:clamp(4px,.7vw,6px);width:clamp(68px,10vw,95px);box-shadow:2px 2px 6px rgba(0,0,0,.06);transform:rotate(2deg)}
+  .tf-excel-bar{display:flex;gap:1px;margin-bottom:4px}
+  .ex-cell{flex:1;text-align:center;font-size:clamp(3.5px,.5vw,5px);font-weight:800;padding:2px 0;border-radius:2px;background:#C6EFCE;color:#006100}
+  .tf-excel-row{display:flex;font-size:clamp(3.5px,.5vw,5px);color:var(--g7);padding:2px 0;border-bottom:1px solid rgba(0,0,0,.04)}
+  .tf-excel-row span{flex:1;text-align:center}
+  .tf-excel-row:first-of-type{font-weight:800;color:var(--g9)}
+  .tf-excel-label{font-size:clamp(4px,.6vw,6px);color:#2E7D32;text-align:right;margin-top:3px;font-style:italic}
+  .tf-x-mark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:clamp(28px,5vw,48px);color:var(--red);opacity:.25;font-weight:900;pointer-events:none}
+  .tf-arrow-wrap{display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .tf-arrow-icon{width:clamp(20px,3vw,28px);height:clamp(20px,3vw,28px);background:linear-gradient(135deg,var(--dendeal-blue),#5C7CFA);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:clamp(9px,1.2vw,12px);font-weight:900;box-shadow:0 3px 10px rgba(59,91,219,.3)}
+  .tf-after{position:relative}
+  .tf-app{width:clamp(90px,13vw,120px);background:white;border-radius:clamp(10px,1.5vw,16px);border:2.5px solid var(--dendeal-blue);overflow:hidden;box-shadow:0 8px 28px rgba(59,91,219,.15)}
+  .tf-app-header{background:linear-gradient(135deg,var(--dendeal-blue),#5C7CFA);padding:clamp(5px,.8vw,8px) clamp(6px,1vw,10px);display:flex;justify-content:space-between;align-items:center;color:white;font-size:clamp(7px,1vw,9px);font-weight:800}
+  .tf-app-badge{width:16px;height:16px;background:rgba(255,255,255,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px}
+  .tf-app-tab-bar{display:flex;border-bottom:1px solid var(--g3)}
+  .tf-app-tab-bar span{flex:1;text-align:center;padding:5px 0;font-size:clamp(5px,.7vw,7px);font-weight:600;color:var(--g5)}
+  .tf-app-tab-bar span.active{color:var(--dendeal-blue);font-weight:800;border-bottom:2px solid var(--dendeal-blue)}
+  .tf-app-item{display:flex;align-items:center;gap:6px;padding:clamp(4px,.6vw,7px) clamp(6px,1vw,10px);border-bottom:1px solid var(--g1)}
+  .tf-app-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .tf-app-dot.blue{background:var(--dendeal-blue)}.tf-app-dot.teal{background:var(--teal)}.tf-app-dot.coral{background:var(--coral)}
+  .tf-app-info{flex:1}
+  .tf-app-name{font-size:clamp(5px,.7vw,7px);font-weight:800;color:var(--g9)}
+  .tf-app-meta{font-size:clamp(4px,.6vw,6px);color:var(--g5)}
+  .tf-app-total{display:flex;justify-content:space-between;align-items:center;padding:clamp(5px,.8vw,8px) clamp(6px,1vw,10px);background:linear-gradient(135deg,#F0F4FF,#E8F0FE);border-top:1px solid rgba(59,91,219,.1)}
+  .tf-app-total span{font-size:clamp(5px,.7vw,7px);color:var(--g5);font-weight:600}
+  .tf-app-total-val{font-size:clamp(8px,1.1vw,10px)!important;font-weight:900!important;color:var(--dendeal-blue)!important}
+  .tf-sparkle{position:absolute;top:-6px;right:-6px;font-size:clamp(14px,2vw,18px);animation:sparkF 2s ease-in-out infinite alternate}
+  @keyframes sparkF{0%{transform:translateY(0) scale(1)}100%{transform:translateY(-4px) scale(1.1)}}
+
+  .what-card p{font-size:clamp(11px,1.2vw,13px);color:var(--g5);line-height:1.55;position:relative;z-index:2}
+  .what-bottom{text-align:center;margin-top:clamp(36px,5vw,56px);position:relative;z-index:2}
+  .what-bottom p{font-size:clamp(16px,2.2vw,20px);font-weight:700;line-height:1.6}
+  .what-bottom p b{background:linear-gradient(135deg,var(--dendeal-blue),#5C7CFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:900}
+
+  /* ===== RESULT ===== */
+  .result-section{background:radial-gradient(ellipse 70% 50% at 80% 30%,rgba(59,91,219,.06),transparent),radial-gradient(ellipse 60% 60% at 20% 70%,rgba(32,201,151,.06),transparent),linear-gradient(160deg,var(--sage-1),#DDE5D8 30%,#D0DAC9 60%,var(--sage-3));position:relative;overflow:hidden}
+  .result-orb{position:absolute;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.5),rgba(255,255,255,.05) 70%);border:1px solid rgba(255,255,255,.3)}
+  .result-orb-1{width:clamp(250px,40vw,500px);height:clamp(250px,40vw,500px);top:-30%;right:-10%;opacity:.4}
+  .result-orb-2{width:clamp(180px,28vw,350px);height:clamp(180px,28vw,350px);bottom:-15%;left:-8%;opacity:.3}
+  .result-section::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle 1px,rgba(59,91,219,.06) 100%,transparent 100%);background-size:24px 24px;mask-image:linear-gradient(180deg,transparent 0%,black 30%,black 70%,transparent 100%);-webkit-mask-image:linear-gradient(180deg,transparent 0%,black 30%,black 70%,transparent 100%)}
+  .result-inner{position:relative;z-index:2}
+  .result-list{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(10px,1.5vw,16px);max-width:900px;margin:clamp(32px,5vw,48px) auto 0}
+  .result-item{display:flex;align-items:center;gap:clamp(14px,2vw,20px);background:rgba(255,255,255,.55);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.7);border-radius:clamp(12px,1.5vw,16px);padding:clamp(16px,2.5vw,24px) clamp(16px,2.5vw,28px);transition:all .3s;position:relative;overflow:hidden}
+  .result-item:hover{background:rgba(255,255,255,.8);transform:translateX(8px);box-shadow:0 12px 40px rgba(0,0,0,.06)}
+  .result-num{width:clamp(36px,5vw,52px);height:clamp(36px,5vw,52px);background:linear-gradient(135deg,var(--dendeal-blue),#5C7CFA);color:white;border-radius:clamp(10px,1.3vw,14px);display:flex;align-items:center;justify-content:center;font-size:clamp(14px,2vw,20px);font-weight:900;flex-shrink:0;box-shadow:0 4px 16px rgba(59,91,219,.25);position:relative;z-index:2}
+  .result-text{font-size:clamp(14px,1.8vw,17px);font-weight:600;color:var(--g7);line-height:1.5;position:relative;z-index:2}
+  .result-text b{background:linear-gradient(135deg,var(--dendeal-blue),#4C6FE0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:900}
+
+  /* ===== REASSURE ===== */
+  .reassure-section{background:var(--white);position:relative;overflow:hidden}
+  .reassure-section::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 40% 40% at 50% 50%,rgba(59,91,219,.03),transparent)}
+  .reassure-box{background:linear-gradient(160deg,#F0F4FF,#E8F0FE,#F5F8FF);border-radius:clamp(20px,3vw,28px);padding:clamp(32px,5vw,60px) clamp(16px,4vw,48px);max-width:680px;margin:0 auto;text-align:center;border:1px solid rgba(59,91,219,.08);position:relative;overflow:hidden;box-shadow:0 8px 40px rgba(59,91,219,.06)}
+  .reassure-box::before{content:'';position:absolute;top:-80px;right:-80px;width:200px;height:200px;background:radial-gradient(circle,rgba(59,91,219,.06),transparent 70%);border-radius:50%}
+  .reassure-box::after{content:'';position:absolute;bottom:-60px;left:-60px;width:160px;height:160px;background:radial-gradient(circle,rgba(32,201,151,.06),transparent 70%);border-radius:50%}
+  .reassure-box h3{font-size:clamp(20px,3vw,26px);font-weight:900;color:var(--g9);margin-bottom:8px;line-height:1.4;position:relative;z-index:2}
+  .reassure-box .rb-sub{font-size:clamp(14px,1.6vw,16px);color:var(--g5);margin-bottom:clamp(20px,3vw,32px);position:relative;z-index:2}
+  .reassure-items{display:flex;flex-direction:column;gap:clamp(8px,1.2vw,12px);position:relative;z-index:2}
+  .reassure-item{display:flex;align-items:center;gap:clamp(12px,1.5vw,16px);background:rgba(255,255,255,.9);padding:clamp(14px,2vw,20px) clamp(16px,2.5vw,24px);border-radius:clamp(10px,1.3vw,14px);text-align:left;transition:all .3s;border:1px solid rgba(255,255,255,.8)}
+  .reassure-item:hover{transform:translateX(6px);box-shadow:0 6px 24px rgba(59,91,219,.08);background:white}
+  .ri-check{width:clamp(28px,3.5vw,36px);height:clamp(28px,3.5vw,36px);background:linear-gradient(135deg,var(--green),#51CF66);color:white;border-radius:clamp(8px,1vw,10px);display:flex;align-items:center;justify-content:center;font-size:clamp(12px,1.5vw,16px);font-weight:900;flex-shrink:0;box-shadow:0 3px 10px rgba(64,192,87,.25)}
+  .ri-text{font-size:clamp(13px,1.6vw,16px);font-weight:700;color:var(--g7)}
+
+  /* ===== CARD NEWS ===== */
+  .cardnews-section{background:linear-gradient(180deg,var(--g1),#EFF1F3 50%,var(--g1));position:relative;overflow:hidden}
+  .cardnews-section::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(60deg,rgba(59,91,219,.02) 25%,transparent 25%,transparent 75%,rgba(59,91,219,.02) 75%),linear-gradient(120deg,rgba(59,91,219,.02) 25%,transparent 25%,transparent 75%,rgba(59,91,219,.02) 75%);background-size:80px 140px}
+  .cardnews-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.5vw,16px);margin-top:clamp(32px,5vw,48px);position:relative;z-index:2}
+  .cn-card{border-radius:clamp(14px,2vw,20px);padding:clamp(24px,3.5vw,36px) clamp(14px,2vw,24px);text-align:center;min-height:clamp(180px,26vw,280px);display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;transition:all .4s}
+  .cn-card:hover{transform:translateY(-8px) scale(1.02)}
+  .cn-card:nth-child(1){background:linear-gradient(150deg,var(--dendeal-blue),#4C6FE0,#5C7CFA);color:white;box-shadow:0 8px 32px rgba(59,91,219,.25)}
+  .cn-card:nth-child(2){background:linear-gradient(150deg,#141E3C,var(--dendeal-navy),#2B3F7E);color:white;box-shadow:0 8px 32px rgba(30,42,94,.25)}
+  .cn-card:nth-child(3){background:linear-gradient(150deg,#FF6B35,#FF8957,#FFA06B);color:white;box-shadow:0 8px 32px rgba(255,107,53,.25)}
+  .cn-card:nth-child(4){background:linear-gradient(150deg,var(--sage-1),#D5DDD0,var(--sage-3));color:var(--g9);border:2px solid rgba(255,255,255,.5);box-shadow:0 8px 32px rgba(0,0,0,.06)}
+  .cn-card::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 80% 20%,rgba(255,255,255,.1),transparent 50%)}
+  .cn-card::after{content:'';position:absolute;bottom:-20px;left:-20px;width:100px;height:100px;background:radial-gradient(circle,rgba(255,255,255,.06),transparent 70%);border-radius:50%}
+  .cn-num{position:absolute;top:14px;right:18px;font-size:clamp(24px,4vw,40px);font-weight:900;opacity:.12}
+  .cn-icon{font-size:clamp(24px,3.5vw,36px);margin-bottom:clamp(12px,1.8vw,18px);position:relative;z-index:2}
+  .cn-title{font-size:clamp(15px,2vw,20px);font-weight:800;line-height:1.5;margin-bottom:8px;position:relative;z-index:2}
+  .cn-sub{font-size:clamp(11px,1.2vw,13px);opacity:.6;line-height:1.5;position:relative;z-index:2}
+
+  /* ===== PROCESS ===== */
+  .process-section{background:linear-gradient(180deg,var(--white),#F5F7FF 50%,var(--white));position:relative;overflow:hidden}
+  .process-section::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 50% 60% at 20% 40%,rgba(59,91,219,.04),transparent),radial-gradient(ellipse 40% 50% at 80% 60%,rgba(32,201,151,.03),transparent)}
+  .process-flow{display:flex;align-items:center;justify-content:center;gap:0;margin-top:clamp(36px,5vw,56px);position:relative;z-index:2;flex-wrap:wrap}
+  .process-step{background:white;border-radius:clamp(16px,2vw,24px);padding:clamp(24px,3.5vw,40px) clamp(20px,3vw,32px);text-align:center;flex:1;min-width:min(100%,220px);max-width:280px;border:2px solid rgba(59,91,219,.08);transition:all .3s;position:relative;overflow:hidden}
+  .process-step::before{content:'';position:absolute;top:-40px;right:-40px;width:100px;height:100px;background:radial-gradient(circle,rgba(59,91,219,.04),transparent 70%);border-radius:50%}
+  .process-step:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(59,91,219,.1);border-color:rgba(59,91,219,.15)}
+  .process-step.highlight{background:linear-gradient(160deg,#F8F9FF,#EDF2FF);border-color:var(--dendeal-blue);box-shadow:0 8px 32px rgba(59,91,219,.12)}
+  .process-step.highlight::after{content:'핵심';position:absolute;top:clamp(8px,1.2vw,12px);right:clamp(8px,1.2vw,12px);background:linear-gradient(135deg,var(--dendeal-blue),#5C7CFA);color:white;font-size:clamp(9px,1.1vw,11px);font-weight:800;padding:clamp(3px,.4vw,4px) clamp(8px,1vw,10px);border-radius:100px}
+  .ps-icon-wrap{margin-bottom:clamp(14px,2vw,20px);position:relative;z-index:2}
+  .ps-icon{width:clamp(48px,6vw,64px);height:clamp(48px,6vw,64px);background:linear-gradient(135deg,var(--dendeal-blue-light),#E0E8FF);border-radius:clamp(14px,1.8vw,20px);display:flex;align-items:center;justify-content:center;font-size:clamp(22px,3vw,28px);margin:0 auto clamp(6px,1vw,10px);box-shadow:0 4px 12px rgba(59,91,219,.08)}
+  .process-step.highlight .ps-icon{background:linear-gradient(135deg,var(--dendeal-blue),#5C7CFA);box-shadow:0 6px 20px rgba(59,91,219,.25)}
+  .ps-num{font-size:clamp(9px,1.1vw,11px);font-weight:800;color:var(--dendeal-blue);letter-spacing:1px}
+  .process-step h3{font-size:clamp(16px,2vw,20px);font-weight:900;color:var(--g9);margin-bottom:clamp(6px,1vw,10px);line-height:1.4;position:relative;z-index:2}
+  .process-step p{font-size:clamp(12px,1.4vw,14px);color:var(--g5);line-height:1.7;position:relative;z-index:2}
+  .process-step p b{color:var(--dendeal-blue);font-weight:800}
+  .process-arrow{padding:0 clamp(4px,.8vw,8px);flex-shrink:0;position:relative;z-index:2}
+  .process-bottom{text-align:center;margin-top:clamp(32px,5vw,48px);position:relative;z-index:2}
+  .process-bottom p{font-size:clamp(14px,1.8vw,17px);color:var(--g5);font-weight:500}
+  .process-bottom p b{background:linear-gradient(135deg,var(--dendeal-blue),#5C7CFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:900}
+
+  /* ===== CTA ===== */
+  .cta-section{background:linear-gradient(135deg,var(--dendeal-blue),#3D60E0 30%,#4C6FE0 60%,#5C7CFA);padding:clamp(56px,8vw,90px) clamp(16px,4vw,24px);text-align:center;position:relative;overflow:hidden}
+  .cta-section::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 50% 80% at 0% 50%,rgba(116,143,252,.3),transparent),radial-gradient(ellipse 40% 60% at 100% 50%,rgba(30,42,94,.3),transparent),radial-gradient(ellipse 60% 40% at 50% 0%,rgba(92,124,250,.2),transparent)}
+  .cta-inner{position:relative;z-index:2;max-width:600px;margin:0 auto}
+  .cta-section h2{font-size:clamp(22px,4vw,38px);font-weight:900;color:white;line-height:1.4;margin-bottom:clamp(8px,1.5vw,12px);text-shadow:0 2px 16px rgba(0,0,0,.1)}
+  .cta-section .cta-sub{font-size:clamp(13px,1.6vw,16px);color:rgba(255,255,255,.6);margin-bottom:clamp(28px,4vw,40px)}
+  .cta-contact{display:flex;justify-content:center;gap:clamp(12px,3vw,32px);flex-wrap:wrap}
+  .cta-contact-item{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.7);font-size:clamp(12px,1.4vw,14px);font-weight:500}
+  .cta-contact-item b{color:white;font-weight:800}
+  .cta-note{font-size:12px;color:rgba(255,255,255,.3);margin-top:24px}
+
+  .btn-kakao{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#FEE500;color:#3C1E1E;padding:clamp(14px,2vw,18px) clamp(28px,4vw,40px);border-radius:14px;font-size:clamp(15px,1.8vw,18px);font-weight:800;text-decoration:none;border:none;cursor:pointer;transition:all .3s;font-family:inherit;box-shadow:0 6px 24px rgba(0,0,0,.15);margin-bottom:clamp(24px,3vw,36px);position:relative;z-index:5}
+  .btn-kakao:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,0,0,.25);background:#FFD700}
+
+  /* ===== FOOTER ===== */
+  footer{background:linear-gradient(180deg,var(--dark),#0A0F1E);padding:clamp(28px,4vw,40px) clamp(16px,4vw,24px);text-align:center;position:relative}
+  footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(59,91,219,.3),transparent)}
+  .footer-logo-wrap{display:inline-flex;align-items:center;gap:8px;margin-bottom:8px}
+  .footer-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--dendeal-blue),#5C7CFA);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:10px;font-weight:900}
+  .footer-name{font-size:16px;font-weight:300;color:rgba(255,255,255,.5);letter-spacing:1px}
+  .footer-text{font-size:12px;color:rgba(255,255,255,.2)}
+
+  /* ===== REVEAL ===== */
+  .reveal{opacity:0;transform:translateY(40px);transition:all .7s cubic-bezier(.16,1,.3,1)}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+
+  /* ===== RESPONSIVE - 모바일 레이아웃 전환 ===== */
+  @media(max-width:768px){
+    .reveal{opacity:1;transform:none}
+    .why-grid{grid-template-columns:repeat(2,1fr)}
+    .what-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+    .what-card{padding:14px 10px 16px;border-radius:12px}
+    .what-card h3{font-size:13px;margin-bottom:4px}
+    .what-card p{font-size:11px;line-height:1.45}
+    .phone-mockup{max-width:130px;border-width:2px;border-radius:14px;margin-bottom:10px}
+    .phone-mockup .phone-header{padding:5px 8px 4px}
+    .phone-mockup .phone-header span{font-size:7px}
+    .phone-mockup .phone-tabs span{padding:4px 0;font-size:6px}
+    .phone-body{padding:6px}
+    .phone-search .ps-btn{padding:3px 5px;font-size:6px}
+    .phone-search .ps-input{padding:3px 5px;font-size:6px}
+    .phone-search{gap:3px;margin-bottom:6px}
+    .phone-list-item{gap:4px;padding:4px 0}
+    .phone-list-item .pli-img{width:18px;height:18px;font-size:9px;border-radius:4px}
+    .phone-list-item .pli-name{font-size:6px}
+    .phone-list-item .pli-price{font-size:5px}
+    .phone-list-item .pli-btn{padding:2px 4px;font-size:5px}
+    .phone-cart-item{gap:5px;padding:5px 0}
+    .phone-cart-item .pci-name{font-size:6px}
+    .phone-cart-item .pci-price{font-size:5px}
+    .phone-cart-item .pci-qty span{width:12px;height:12px;font-size:6px}
+    .phone-stat-header .psh-value{font-size:13px}
+    .phone-stat-header .psh-label{font-size:6px}
+    .phone-stat-header .psh-count{font-size:6px}
+    .mini-chart{height:50px;padding:8px 4px 0}
+    .mini-bar-label{font-size:5px}
+    .mini-bar-val{font-size:4px}
+    .transform-mockup{gap:3px;max-height:220px}
+    .tf-paper{width:55px;padding:4px}
+    .tf-excel{width:55px;padding:3px}
+    .tf-app{width:75px}
+    .tf-arrow-icon{width:18px;height:18px;font-size:9px}
+    .result-list{grid-template-columns:repeat(2,1fr)}
+    .cardnews-grid{grid-template-columns:repeat(2,1fr)}
+    .how-ba-unified{grid-template-columns:1fr}
+    .ba-center-divider{flex-direction:row;padding:10px 20px;width:auto;background:linear-gradient(90deg,#F1F3F5,#EAECF0 48%,#E0E5F5 52%,#EDF2FF)}
+    .ba-center-divider::before{top:50%;bottom:auto;left:0;right:0;width:100%;height:1px;transform:translateY(-.5px);background:linear-gradient(90deg,rgba(0,0,0,.06),rgba(59,91,219,.15),rgba(0,0,0,.06))}
+    .ba-center-line{display:none}
+    .ba-center-arrow{margin:0 6px}
+    .process-flow{flex-direction:row;flex-wrap:nowrap;gap:0;align-items:stretch}
+    .process-step{max-width:none;min-width:0;flex:1;padding:14px 6px 16px;border-radius:12px}
+    .process-step.highlight::after{font-size:7px;padding:2px 6px;top:4px;right:4px}
+    .ps-icon-wrap{margin-bottom:8px}
+    .process-step h3{font-size:12px;line-height:1.35;margin-bottom:4px;word-break:keep-all}
+    .process-step p{font-size:10px;line-height:1.5;word-break:keep-all}
+    .process-step p br{display:none}
+    .ps-icon{width:36px;height:36px;font-size:18px;border-radius:10px;margin-bottom:4px}
+    .ps-num{font-size:8px;letter-spacing:0.5px}
+    .process-arrow{padding:0 1px}
+    .process-arrow svg{width:24px;height:12px}
+    .cta-contact{flex-direction:column;align-items:center}
+  }
+
+  /* 터치 호버 비활성화 */
+  @media(hover:none){
+    .why-card:hover,.ba-item-before:hover,.ba-item-after:hover,.what-card:hover,.result-item:hover,.reassure-item:hover,.cn-card:hover,.process-step:hover{transform:none!important}
+  }
+</style>
+</head>
+<body>
 
 <!-- ===== HERO ===== -->
-<div style="min-height:100vh;background:linear-gradient(160deg,#E8EDE4 0%,#DDE5D8 25%,#D0DAC9 50%,#C8D4BF 75%,#BCC9B3 100%);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:60px 20px;">
-  
-  <!-- 장식 오브 -->
-  <div style="position:absolute;width:50vw;max-width:650px;height:50vw;max-height:650px;top:-15%;right:-10%;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(255,255,255,0.55),rgba(255,255,255,0.05) 70%);border:1px solid rgba(255,255,255,0.3);pointer-events:none;"></div>
-  <div style="position:absolute;width:32vw;max-width:420px;height:32vw;max-height:420px;bottom:-8%;left:-8%;border-radius:50%;background:radial-gradient(circle at 60% 30%,rgba(59,91,219,0.1),rgba(32,201,151,0.05) 70%);border:1px solid rgba(255,255,255,0.2);pointer-events:none;"></div>
+<section class="hero">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+  <div class="deco-ring deco-ring-1"></div>
+  <div class="deco-ring deco-ring-2"></div>
+  <div class="deco-diamond dd-1"></div>
+  <div class="deco-diamond dd-2"></div>
+  <div class="deco-diamond dd-3"></div>
+  <div class="deco-diamond dd-4"></div>
 
-  <div style="position:relative;z-index:3;text-align:center;width:100%;max-width:860px;">
-    
-    <!-- 로고 -->
-    <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:40px;">
-      <div style="width:48px;height:48px;background:linear-gradient(135deg,#3B5BDB,#5C7CFA);border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;font-weight:900;font-size:14px;box-shadow:0 4px 16px rgba(59,91,219,0.3);">덴딜.</div>
-      <span style="font-size:28px;font-weight:300;color:#495057;letter-spacing:2px;">Mall</span>
+  <div class="hero-content">
+    <div class="hero-logo">
+      <div class="logo-icon">덴딜.</div>
+      <span class="logo-text">Mall</span>
     </div>
 
-    <br>
-
-    <!-- 태그라인 -->
-    <div style="display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#3B5BDB,#4C6FE0);border-radius:100px;padding:14px 32px;margin-bottom:40px;box-shadow:0 6px 24px rgba(59,91,219,0.25);">
-      <span style="background:white;color:#3B5BDB;font-size:12px;font-weight:900;padding:4px 12px;border-radius:100px;">덴딜몰</span>
-      <span style="color:white;font-size:15px;font-weight:500;"><b style="font-weight:900;">주문</b>이 편해지면, <b style="font-weight:900;">치과 운영</b>이 달라집니다.</span>
+    <div class="hero-tagline">
+      <span class="tag-label">덴딜몰</span>
+      <span class="tag-text"><b>주문</b>이 편해지면, <b>치과 운영</b>이 달라집니다.</span>
     </div>
 
-    <br>
+    <h1>이전에 없었던<br><span class="blue">치과 쇼핑몰</span></h1>
+    <p class="hero-sub">우리 치과가 쓰는 재료만<br>관리, 구매하는 쇼핑몰</p>
 
-    <!-- 헤드라인 -->
-    <h1 style="font-size:clamp(28px,5.5vw,52px);font-weight:900;color:#212529;line-height:1.35;margin-bottom:20px;">이전에 없었던<br><span style="background:linear-gradient(135deg,#3B5BDB,#5C7CFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">치과 쇼핑몰</span></h1>
-    <p style="font-size:clamp(14px,2.2vw,18px);color:#868E96;line-height:1.8;margin-bottom:40px;font-weight:400;">우리 치과가 쓰는 재료만<br>관리, 구매하는 쇼핑몰</p>
-
-    <!-- CTA -->
-    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
-      <a href="http://pf.kakao.com/_MYKhX/chat" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.65);color:#495057;padding:16px 36px;border-radius:12px;font-size:16px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,0.8);backdrop-filter:blur(10px);font-family:'Noto Sans KR',sans-serif;">카카오톡 문의하기 💬</a>
+    <div class="hero-cta-group">
+      <a href="http://pf.kakao.com/_MYKhX/chat" target="_blank" class="btn-outline">카카오톡 문의하기 💬</a>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ===== WHY ===== -->
-<div style="background:#0F1629;color:white;padding:clamp(56px,8vw,100px) clamp(16px,4vw,24px);position:relative;overflow:hidden;">
-  <div style="max-width:1040px;margin:0 auto;position:relative;z-index:2;">
-    <div style="text-align:center;">
-      <div style="font-size:clamp(24px,4vw,34px);font-weight:900;background:linear-gradient(135deg,rgba(255,255,255,0.4),rgba(255,255,255,0.7));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;font-style:italic;letter-spacing:-1px;">Why?</div>
-      <div style="font-size:clamp(21px,3.5vw,34px);font-weight:700;line-height:1.45;color:white;margin-bottom:12px;">치과 재료 구매는<br>왜 항상 <b style="font-weight:900;color:#DEE2E6;">번거로울까?</b></div>
+<!-- ===== WHY? ===== -->
+<section class="why-section">
+  <div class="why-deco-arc why-deco-arc-1"></div>
+  <div class="why-deco-arc why-deco-arc-2"></div>
+  <div class="why-deco-arc why-deco-arc-3"></div>
+
+  <div class="section-inner why-inner">
+    <div class="reveal">
+      <div class="section-label">Why?</div>
+      <div class="section-subtitle">치과 재료 구매는<br>왜 항상 <b>번거로울까?</b></div>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px;margin-top:48px;">
-      
-      <div style="background:linear-gradient(160deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;">
-        <div style="font-size:28px;margin-bottom:16px;">📞</div>
-        <h3 style="font-size:17px;font-weight:800;color:white;margin-bottom:8px;">전화·카톡·거래처별 발주가 섞인다</h3>
-        <p style="font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;">발주 채널이 3개 이상이면 기록이 남지 않습니다. 누가 뭘 시켰는지 추적이 안 됩니다.</p>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="wc-icon">📞</div>
+        <h3>전화·카톡·거래처별 발주가 섞인다</h3>
+        <p>발주 채널이 3개 이상이면 기록이 남지 않습니다. 누가 뭘 시켰는지 추적이 안 됩니다.</p>
       </div>
-
-      <div style="background:linear-gradient(160deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;">
-        <div style="font-size:28px;margin-bottom:16px;">⏰</div>
-        <h3 style="font-size:17px;font-weight:800;color:white;margin-bottom:8px;">온라인 재료 주문 시 시간이 낭비됨</h3>
-        <p style="font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;">매번 검색하고, 비교하고, 장바구니에 담고… 같은 재료를 반복 주문하는데도 시간이 걸립니다.</p>
+      <div class="why-card reveal">
+        <div class="wc-icon">⏰</div>
+        <h3>온라인 재료 주문 시 시간이 낭비됨</h3>
+        <p>매번 검색하고, 비교하고, 장바구니에 담고… 같은 재료를 반복 주문하는데도 시간이 걸립니다.</p>
       </div>
-
-      <div style="background:linear-gradient(160deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;">
-        <div style="font-size:28px;margin-bottom:16px;">🔄</div>
-        <h3 style="font-size:17px;font-weight:800;color:white;margin-bottom:8px;">같은 제품 재주문도 번거로움</h3>
-        <p style="font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;">지난번에 뭘 시켰는지 기억이 안 나고, 다시 찾아서 주문하는 과정이 반복됩니다.</p>
+      <div class="why-card reveal">
+        <div class="wc-icon">🔄</div>
+        <h3>같은 제품 재주문도 번거로움</h3>
+        <p>지난번에 뭘 시켰는지 기억이 안 나고, 다시 찾아서 주문하는 과정이 반복됩니다.</p>
       </div>
-
-      <div style="background:linear-gradient(160deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;">
-        <div style="font-size:28px;margin-bottom:16px;">👤</div>
-        <h3 style="font-size:17px;font-weight:800;color:white;margin-bottom:8px;">재료 담당자 바뀌면 불안함</h3>
-        <p style="font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;">인수인계가 제대로 안 되면 어떤 재료를, 어디서, 얼마에 사는지 다시 파악해야 합니다.</p>
+      <div class="why-card reveal">
+        <div class="wc-icon">👤</div>
+        <h3>재료 담당자 바뀌면 불안함</h3>
+        <p>인수인계가 제대로 안 되면 어떤 재료를, 어디서, 얼마에 사는지 다시 파악해야 합니다.</p>
       </div>
     </div>
 
-    <div style="text-align:center;margin-top:48px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.06);">
-      <p style="font-size:18px;color:rgba(255,255,255,0.5);line-height:1.8;">치과 구매는 아직도 <b style="color:white;font-weight:800;">복잡하고</b><br><b style="color:white;font-weight:800;">정리되지 않은 방식</b>에 머물러 있습니다.</p>
+    <div class="why-bottom reveal">
+      <p>치과 구매는 아직도 <b>복잡하고</b><br><b>정리되지 않은 방식</b>에 머물러 있습니다.</p>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ===== HOW (Before/After) ===== -->
-<div style="background:white;padding:clamp(56px,8vw,100px) clamp(16px,4vw,24px);position:relative;">
-  <div style="max-width:1040px;margin:0 auto;">
-    <div style="text-align:center;">
-      <div style="font-size:clamp(24px,4vw,34px);font-weight:900;background:linear-gradient(135deg,#3B5BDB,#5C7CFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;font-style:italic;letter-spacing:-1px;">How!</div>
-      <div style="font-size:clamp(21px,3.5vw,34px);font-weight:700;line-height:1.45;">덴딜은 <span style="color:#3B5BDB;">구매 방식</span>을<br>바꿉니다!</div>
+<!-- ===== HOW! ===== -->
+<section class="how-section" id="how">
+  <div class="how-bg-circles"></div>
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label">How!</div>
+      <div class="section-subtitle">덴딜은 <span style="color:var(--dendeal-blue);">구매 방식</span>을<br>바꿉니다!</div>
     </div>
 
-    <!-- Before / After 카드 -->
-    <div style="display:grid;grid-template-columns:1fr auto 1fr;margin-top:48px;background:white;border-radius:24px;overflow:hidden;border:2px solid rgba(59,91,219,0.08);box-shadow:0 8px 40px rgba(0,0,0,0.04);" id="ba-grid">
-      
-      <!-- Before -->
-      <div style="padding:36px 28px 40px;background:linear-gradient(160deg,#F8F9FA,#F1F3F5);">
-        <div style="text-align:center;margin-bottom:28px;">
-          <span style="display:inline-block;font-size:13px;font-weight:900;letter-spacing:2px;padding:6px 20px;border-radius:100px;background:rgba(0,0,0,0.06);color:#868E96;">Before</span>
+    <div class="how-ba-unified reveal">
+      <div class="ba-side ba-side-before">
+        <div class="ba-side-label-wrap">
+          <div class="ba-side-label ba-label-before">Before</div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:14px;">
-          <div style="display:flex;align-items:center;gap:14px;padding:18px;border-radius:14px;background:rgba(255,255,255,0.7);border:1px solid rgba(0,0,0,0.04);">
-            <div style="font-size:26px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;">😩</div>
-            <div style="font-size:15px;color:#868E96;line-height:1.55;">온라인 재료 주문 시<br><b style="color:#495057;font-weight:800;">시간이 낭비됨</b></div>
+        <div class="ba-items">
+          <div class="ba-item-before">
+            <div class="ba-item-icon">😩</div>
+            <div class="ba-item-text">온라인 재료 주문 시<br><b>시간이 낭비됨</b></div>
           </div>
-          <div style="display:flex;align-items:center;gap:14px;padding:18px;border-radius:14px;background:rgba(255,255,255,0.7);border:1px solid rgba(0,0,0,0.04);">
-            <div style="font-size:26px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;">😤</div>
-            <div style="font-size:15px;color:#868E96;line-height:1.55;">같은 제품<br><b style="color:#495057;font-weight:800;">재주문도 번거로움</b></div>
+          <div class="ba-item-before">
+            <div class="ba-item-icon">😤</div>
+            <div class="ba-item-text">같은 제품<br><b>재주문도 번거로움</b></div>
           </div>
-          <div style="display:flex;align-items:center;gap:14px;padding:18px;border-radius:14px;background:rgba(255,255,255,0.7);border:1px solid rgba(0,0,0,0.04);">
-            <div style="font-size:26px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;">😟</div>
-            <div style="font-size:15px;color:#868E96;line-height:1.55;">재료 담당자 바뀌면<br><b style="color:#495057;font-weight:800;">불안함</b></div>
+          <div class="ba-item-before">
+            <div class="ba-item-icon">😟</div>
+            <div class="ba-item-text">재료 담당자 바뀌면<br><b>불안함</b></div>
           </div>
         </div>
       </div>
 
-      <!-- 가운데 화살표 -->
-      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:60px;background:linear-gradient(180deg,#F1F3F5,#EAECF0 48%,#E0E5F5 52%,#EDF2FF);position:relative;" id="ba-divider">
-        <div style="width:36px;height:36px;background:linear-gradient(135deg,#3B5BDB,#5C7CFA);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;box-shadow:0 4px 16px rgba(59,91,219,0.3);margin:8px 0;">→</div>
-        <div style="width:36px;height:36px;background:linear-gradient(135deg,#3B5BDB,#5C7CFA);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;box-shadow:0 4px 16px rgba(59,91,219,0.3);margin:8px 0;">→</div>
-        <div style="width:36px;height:36px;background:linear-gradient(135deg,#3B5BDB,#5C7CFA);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;box-shadow:0 4px 16px rgba(59,91,219,0.3);margin:8px 0;">→</div>
+      <div class="ba-center-divider">
+        <div class="ba-center-line"></div>
+        <div class="ba-center-arrow">→</div>
+        <div class="ba-center-arrow">→</div>
+        <div class="ba-center-arrow">→</div>
+        <div class="ba-center-line"></div>
       </div>
 
-      <!-- After -->
-      <div style="padding:36px 28px 40px;background:linear-gradient(160deg,#F0F4FF,#E8F0FE,#F5F8FF);">
-        <div style="text-align:center;margin-bottom:28px;">
-          <span style="display:inline-block;font-size:13px;font-weight:900;letter-spacing:2px;padding:6px 20px;border-radius:100px;background:linear-gradient(135deg,#3B5BDB,#5C7CFA);color:white;box-shadow:0 3px 12px rgba(59,91,219,0.25);">After</span>
+      <div class="ba-side ba-side-after">
+        <div class="ba-side-label-wrap">
+          <div class="ba-side-label ba-label-after">After</div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:14px;">
-          <div style="display:flex;align-items:center;gap:14px;padding:18px;border-radius:14px;background:rgba(255,255,255,0.6);border:1px solid rgba(59,91,219,0.08);">
-            <div style="font-size:26px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;">✨</div>
-            <div style="font-size:15px;color:#495057;line-height:1.55;"><b style="background:linear-gradient(135deg,#3B5BDB,#4C6FE0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;">필수 재료</b>가<br>한눈에 관리</div>
+        <div class="ba-items">
+          <div class="ba-item-after">
+            <div class="ba-item-icon">✨</div>
+            <div class="ba-item-text"><b>필수 재료</b>가<br>한눈에 관리</div>
           </div>
-          <div style="display:flex;align-items:center;gap:14px;padding:18px;border-radius:14px;background:rgba(255,255,255,0.6);border:1px solid rgba(59,91,219,0.08);">
-            <div style="font-size:26px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;">🖱️</div>
-            <div style="font-size:15px;color:#495057;line-height:1.55;"><b style="background:linear-gradient(135deg,#3B5BDB,#4C6FE0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;">클릭 한번</b>으로<br>재주문을 쉽게</div>
+          <div class="ba-item-after">
+            <div class="ba-item-icon">🖱️</div>
+            <div class="ba-item-text"><b>클릭 한번</b>으로<br>재주문을 쉽게</div>
           </div>
-          <div style="display:flex;align-items:center;gap:14px;padding:18px;border-radius:14px;background:rgba(255,255,255,0.6);border:1px solid rgba(59,91,219,0.08);">
-            <div style="font-size:26px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;">👍</div>
-            <div style="font-size:15px;color:#495057;line-height:1.55;">간단한 시스템으로<br><b style="background:linear-gradient(135deg,#3B5BDB,#4C6FE0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;">누구나 처리 가능</b></div>
+          <div class="ba-item-after">
+            <div class="ba-item-icon">👍</div>
+            <div class="ba-item-text">간단한 시스템으로<br><b>누구나 처리 가능</b></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- ===== QUOTE ===== -->
-<div style="background:linear-gradient(135deg,#3B5BDB 0%,#4C6FE0 40%,#5C7CFA 70%,#748FFC 100%);padding:clamp(48px,8vw,90px) clamp(16px,4vw,24px);text-align:center;position:relative;overflow:hidden;">
-  <p style="font-size:clamp(18px,3.5vw,34px);font-weight:800;color:white;line-height:1.6;max-width:650px;margin:0 auto;position:relative;z-index:2;text-shadow:0 2px 20px rgba(0,0,0,0.1);">
-    <span style="background:rgba(255,255,255,0.12);padding:2px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);">"누가, 언제, 어떤 재료를<br>얼마나 썼는지"</span>가<br>
+<div class="quote-banner">
+  <div class="quote-rays"></div>
+  <div class="quote-glow-1"></div>
+  <div class="quote-glow-2"></div>
+  <p class="quote-text reveal">
+    <span class="em">"누가, 언제, 어떤 재료를<br>얼마나 썼는지"</span>가<br>
     말이 아니라 숫자로 보입니다
   </p>
 </div>
 
+<!-- ===== WHAT?! ===== -->
+<section class="what-section">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label">What?!</div>
+      <div class="section-subtitle">그래서 <b>덴딜몰</b>은<br>무엇을 <b>제공</b>하는가!?</div>
+    </div>
+
+    <div class="what-grid">
+      <div class="what-card reveal">
+        <div class="phone-mockup">
+          <div class="phone-header">
+            <span>‹</span>
+            <span style="font-weight:800;">덴딜 Mall</span>
+            <span>🔔</span>
+          </div>
+          <div class="phone-tabs">
+            <span>쇼핑몰</span>
+            <span class="active">즐겨찾기</span>
+            <span>구매관리</span>
+            <span>통계</span>
+          </div>
+          <div class="phone-body">
+            <div class="phone-search">
+              <div class="ps-btn">구매 상품</div>
+              <div class="ps-input">검색</div>
+            </div>
+            <div style="font-size:8px;font-weight:800;color:var(--gray-700);padding:6px 0 4px;border-bottom:1px solid var(--gray-300);">진료재료 <span style="float:right;font-weight:500;color:var(--gray-500)">3개 품목</span></div>
+            <div class="phone-list-item">
+              <div class="pli-img">🦷</div>
+              <div class="pli-info">
+                <div class="pli-name">덴티칸 인상재 카트리지</div>
+                <div class="pli-price">₩5,000</div>
+              </div>
+              <div class="pli-actions">
+                <div class="pli-btn">삭제</div>
+                <div class="pli-btn">담기</div>
+              </div>
+            </div>
+            <div class="phone-list-item">
+              <div class="pli-img">🔩</div>
+              <div class="pli-info">
+                <div class="pli-name">덴티칸 에멜 특상 트레이</div>
+                <div class="pli-price">₩6,000</div>
+              </div>
+              <div class="pli-actions">
+                <div class="pli-btn">삭제</div>
+                <div class="pli-btn">담기</div>
+              </div>
+            </div>
+            <div class="phone-list-item">
+              <div class="pli-img">💊</div>
+              <div class="pli-info">
+                <div class="pli-name">에니젠 프로 (페리스)</div>
+                <div class="pli-price">₩42,000</div>
+              </div>
+              <div class="pli-actions">
+                <div class="pli-btn">삭제</div>
+                <div class="pli-btn">담기</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h3>자동 즐겨찾기 시스템</h3>
+        <p>한번 구매한 상품은 자동 저장<br>다시 검색하지 않아도 주문 가능</p>
+      </div>
+
+      <div class="what-card reveal">
+        <div class="phone-mockup">
+          <div class="phone-header">
+            <span>✕</span>
+            <span style="font-weight:800;color:var(--dendeal-blue);">장바구니</span>
+            <span></span>
+          </div>
+          <div class="phone-body" style="padding-top:16px;">
+            <div class="phone-cart-item">
+              <div class="pci-info"><div class="pci-name">페리스 실드</div><div class="pci-price">₩9,000</div></div>
+              <div class="pci-qty"><span>-</span><span>1</span><span>+</span></div>
+            </div>
+            <div class="phone-cart-item">
+              <div class="pci-info"><div class="pci-name">덴티칸 인상재 카트리지</div><div class="pci-price">₩5,000</div></div>
+              <div class="pci-qty"><span>-</span><span>1</span><span>+</span></div>
+            </div>
+            <div class="phone-cart-item">
+              <div class="pci-info"><div class="pci-name">덴티칸 에멜 특상 트레이</div><div class="pci-price">₩6,000</div></div>
+              <div class="pci-qty"><span>-</span><span>1</span><span>+</span></div>
+            </div>
+            <div style="text-align:right;padding:12px 0 0;border-top:1px solid var(--gray-300);margin-top:8px;">
+              <span style="font-size:8px;color:var(--gray-500);">합계</span>
+              <span style="font-size:12px;font-weight:900;color:var(--dendeal-blue);margin-left:6px;">₩20,000</span>
+            </div>
+          </div>
+        </div>
+        <h3>재구매 시스템</h3>
+        <p>이전 구매를 수량, 옵션만<br>조정해서 빠르게 주문</p>
+      </div>
+
+      <div class="what-card reveal">
+        <div class="transform-mockup">
+          <!-- Before: 종이/엑셀 -->
+          <div class="tf-before">
+            <div class="tf-paper">
+              <div class="tf-paper-title">📄 발주 대장</div>
+              <div class="tf-paper-row"><span>날짜</span><span>품목</span><span>수량</span></div>
+              <div class="tf-paper-row data"><span>1/15</span><span>페리스</span><span>2</span></div>
+              <div class="tf-paper-row data"><span>1/18</span><span>인상재</span><span>3</span></div>
+              <div class="tf-paper-row data"><span>1/22</span><span>스크류</span><span>1</span></div>
+              <div class="tf-scribble">✏️ 수기작성</div>
+            </div>
+            <div class="tf-excel">
+              <div class="tf-excel-bar">
+                <span class="ex-cell green">A</span><span class="ex-cell green">B</span><span class="ex-cell green">C</span><span class="ex-cell green">D</span>
+              </div>
+              <div class="tf-excel-row"><span>날짜</span><span>품목</span><span>단가</span><span>합계</span></div>
+              <div class="tf-excel-row"><span>01-15</span><span>페리스</span><span>9,000</span><span>18,000</span></div>
+              <div class="tf-excel-row"><span>01-22</span><span>스크류</span><span>36,000</span><span>36,000</span></div>
+              <div class="tf-excel-label">📊 엑셀정리</div>
+            </div>
+            <div class="tf-x-mark">✕</div>
+          </div>
+          <!-- Arrow -->
+          <div class="tf-arrow-wrap">
+            <div class="tf-arrow-icon">→</div>
+          </div>
+          <!-- After: 앱 -->
+          <div class="tf-after">
+            <div class="tf-app">
+              <div class="tf-app-header">
+                <span>덴딜 Mall</span>
+                <span class="tf-app-badge">✓</span>
+              </div>
+              <div class="tf-app-tab-bar">
+                <span class="active">구매관리</span>
+                <span>통계</span>
+              </div>
+              <div class="tf-app-item">
+                <div class="tf-app-dot blue"></div>
+                <div class="tf-app-info">
+                  <div class="tf-app-name">페리스 실드</div>
+                  <div class="tf-app-meta">01-15 · 2개 · ₩18,000</div>
+                </div>
+              </div>
+              <div class="tf-app-item">
+                <div class="tf-app-dot teal"></div>
+                <div class="tf-app-info">
+                  <div class="tf-app-name">덴티칸 인상재</div>
+                  <div class="tf-app-meta">01-18 · 3개 · ₩15,000</div>
+                </div>
+              </div>
+              <div class="tf-app-item">
+                <div class="tf-app-dot coral"></div>
+                <div class="tf-app-info">
+                  <div class="tf-app-name">임플란트 스크류</div>
+                  <div class="tf-app-meta">01-22 · 1개 · ₩36,000</div>
+                </div>
+              </div>
+              <div class="tf-app-total">
+                <span>총 합계</span>
+                <span class="tf-app-total-val">₩69,000</span>
+              </div>
+            </div>
+            <div class="tf-sparkle">✨</div>
+          </div>
+        </div>
+        <h3>편리한 재료 관리</h3>
+        <p>종이·엑셀 정리는 이제 그만!<br>앱에서 자동으로 깔끔하게</p>
+      </div>
+
+      <div class="what-card reveal">
+        <div class="phone-mockup">
+          <div class="phone-header">
+            <span></span>
+            <span style="font-weight:800;">통계</span>
+            <span>📥</span>
+          </div>
+          <div class="phone-body">
+            <div class="phone-stat-header">
+              <div class="psh-count">127건</div>
+              <div class="psh-value">5,360,000원</div>
+              <div class="psh-label">재료비 총 현황</div>
+            </div>
+            <div style="font-size:8px;font-weight:700;color:var(--gray-700);margin:8px 0 4px;">월별 전체 주문금액 통계</div>
+            <div class="mini-chart">
+              <div class="mini-bar-group"><div class="mini-bar-val">51만</div><div class="mini-bar" style="height:38%"></div><div class="mini-bar-label">7월</div></div>
+              <div class="mini-bar-group"><div class="mini-bar-val">74만</div><div class="mini-bar" style="height:52%"></div><div class="mini-bar-label">8월</div></div>
+              <div class="mini-bar-group"><div class="mini-bar-val">81만</div><div class="mini-bar" style="height:58%"></div><div class="mini-bar-label">9월</div></div>
+              <div class="mini-bar-group"><div class="mini-bar-val">91만</div><div class="mini-bar" style="height:65%"></div><div class="mini-bar-label">10월</div></div>
+              <div class="mini-bar-group"><div class="mini-bar-val">97만</div><div class="mini-bar" style="height:70%"></div><div class="mini-bar-label">11월</div></div>
+              <div class="mini-bar-group"><div class="mini-bar-val">124만</div><div class="mini-bar highlight" style="height:90%"></div><div class="mini-bar-label">12월</div></div>
+              <div class="mini-bar-group"><div class="mini-bar-val">48만</div><div class="mini-bar" style="height:34%"></div><div class="mini-bar-label">1월</div></div>
+            </div>
+          </div>
+        </div>
+        <h3>구매 통계 관리</h3>
+        <p>월별 지출 분석으로<br>구매 통계를 한눈에 확인</p>
+      </div>
+    </div>
+
+    <div class="what-bottom reveal">
+      <p>치과 구매를 더 간편하게 만드는<br><b>덴딜몰</b>의 핵심 기능</p>
+    </div>
+  </div>
+</section>
+
 <!-- ===== RESULT ===== -->
-<div style="background:linear-gradient(160deg,#E8EDE4,#DDE5D8 30%,#D0DAC9 60%,#C2CFBB);padding:clamp(56px,8vw,100px) clamp(16px,4vw,24px);position:relative;overflow:hidden;">
-  <div style="max-width:1040px;margin:0 auto;position:relative;z-index:2;">
-    <div style="text-align:center;">
-      <div style="font-size:clamp(24px,4vw,34px);font-weight:900;background:linear-gradient(135deg,#3B5BDB,#5C7CFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;font-style:italic;letter-spacing:-1px;">Result.</div>
-      <div style="font-size:clamp(21px,3.5vw,34px);font-weight:700;line-height:1.45;"><b>덴딜몰</b>을 사용하면<br>이렇게 <b>달라집니다.</b></div>
+<section class="result-section">
+  <div class="result-orb result-orb-1"></div>
+  <div class="result-orb result-orb-2"></div>
+
+  <div class="section-inner result-inner">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label">Result.</div>
+      <div class="section-subtitle"><b>덴딜몰</b>을 사용하면<br>이렇게 <b>달라집니다.</b></div>
     </div>
 
-    <div style="display:flex;flex-direction:column;gap:14px;max-width:640px;margin:48px auto 0;">
-      <div style="display:flex;align-items:center;gap:20px;background:rgba(255,255,255,0.55);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.7);border-radius:16px;padding:24px 28px;">
-        <div style="width:52px;height:52px;background:linear-gradient(135deg,#3B5BDB,#5C7CFA);color:white;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;flex-shrink:0;box-shadow:0 4px 16px rgba(59,91,219,0.25);">01</div>
-        <div style="font-size:17px;font-weight:600;color:#495057;">똑똑한 <b style="background:linear-gradient(135deg,#3B5BDB,#4C6FE0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;">구매시스템</b>으로 업무 효율 UP!</div>
+    <div class="result-list">
+      <div class="result-item reveal">
+        <div class="result-num">01</div>
+        <div class="result-text">똑똑한 <b>구매시스템</b>으로 업무 효율 UP!</div>
       </div>
-      <div style="display:flex;align-items:center;gap:20px;background:rgba(255,255,255,0.55);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.7);border-radius:16px;padding:24px 28px;">
-        <div style="width:52px;height:52px;background:linear-gradient(135deg,#3B5BDB,#5C7CFA);color:white;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;flex-shrink:0;box-shadow:0 4px 16px rgba(59,91,219,0.25);">02</div>
-        <div style="font-size:17px;font-weight:600;color:#495057;">인수인계 걱정 없는 <b style="background:linear-gradient(135deg,#3B5BDB,#4C6FE0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;">편리한 기능</b></div>
+      <div class="result-item reveal">
+        <div class="result-num">02</div>
+        <div class="result-text">인수인계 걱정 없는 <b>편리한 기능</b></div>
       </div>
-      <div style="display:flex;align-items:center;gap:20px;background:rgba(255,255,255,0.55);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.7);border-radius:16px;padding:24px 28px;">
-        <div style="width:52px;height:52px;background:linear-gradient(135deg,#3B5BDB,#5C7CFA);color:white;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;flex-shrink:0;box-shadow:0 4px 16px rgba(59,91,219,0.25);">03</div>
-        <div style="font-size:17px;font-weight:600;color:#495057;">우리 치과 <b style="background:linear-gradient(135deg,#3B5BDB,#4C6FE0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;">재료들</b>을 한눈에 관리</div>
+      <div class="result-item reveal">
+        <div class="result-num">03</div>
+        <div class="result-text">우리 치과 <b>재료들</b>을 한눈에 관리</div>
       </div>
-      <div style="display:flex;align-items:center;gap:20px;background:rgba(255,255,255,0.55);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.7);border-radius:16px;padding:24px 28px;">
-        <div style="width:52px;height:52px;background:linear-gradient(135deg,#3B5BDB,#5C7CFA);color:white;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;flex-shrink:0;box-shadow:0 4px 16px rgba(59,91,219,0.25);">04</div>
-        <div style="font-size:17px;font-weight:600;color:#495057;">재료관리로 인한 <b style="background:linear-gradient(135deg,#3B5BDB,#4C6FE0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;">시간과 비용을 절약</b></div>
+      <div class="result-item reveal">
+        <div class="result-num">04</div>
+        <div class="result-text">재료관리로 인한 <b>시간과 비용을 절약</b></div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ===== 실장님 안심 ===== -->
-<div style="background:white;padding:clamp(56px,8vw,100px) clamp(16px,4vw,24px);">
-  <div style="background:linear-gradient(160deg,#F0F4FF,#E8F0FE,#F5F8FF);border-radius:28px;padding:clamp(32px,5vw,60px) clamp(16px,4vw,48px);max-width:680px;margin:0 auto;text-align:center;border:1px solid rgba(59,91,219,0.08);box-shadow:0 8px 40px rgba(59,91,219,0.06);">
-    <h3 style="font-size:clamp(20px,3vw,26px);font-weight:900;color:#212529;margin-bottom:8px;line-height:1.4;">실장님이 먼저<br>좋아하는 시스템입니다</h3>
-    <p style="font-size:16px;color:#868E96;margin-bottom:32px;">재료 발주, 이제 스트레스 없이 클릭 한 번이면 끝</p>
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div style="display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.9);padding:20px 24px;border-radius:14px;text-align:left;border:1px solid rgba(255,255,255,0.8);">
-        <div style="width:36px;height:36px;background:linear-gradient(135deg,#40C057,#51CF66);color:white;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;flex-shrink:0;box-shadow:0 3px 10px rgba(64,192,87,0.25);">✓</div>
-        <div style="font-size:16px;font-weight:700;color:#495057;">전화 안 해도 발주가 됩니다</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.9);padding:20px 24px;border-radius:14px;text-align:left;border:1px solid rgba(255,255,255,0.8);">
-        <div style="width:36px;height:36px;background:linear-gradient(135deg,#40C057,#51CF66);color:white;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;flex-shrink:0;box-shadow:0 3px 10px rgba(64,192,87,0.25);">✓</div>
-        <div style="font-size:16px;font-weight:700;color:#495057;">뭘 시켰는지 다시 찾을 필요 없습니다</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.9);padding:20px 24px;border-radius:14px;text-align:left;border:1px solid rgba(255,255,255,0.8);">
-        <div style="width:36px;height:36px;background:linear-gradient(135deg,#40C057,#51CF66);color:white;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;flex-shrink:0;box-shadow:0 3px 10px rgba(64,192,87,0.25);">✓</div>
-        <div style="font-size:16px;font-weight:700;color:#495057;">월말 정리 없이 자동으로 깔끔하게 정리됩니다</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:16px;background:rgba(255,255,255,0.9);padding:20px 24px;border-radius:14px;text-align:left;border:1px solid rgba(255,255,255,0.8);">
-        <div style="width:36px;height:36px;background:linear-gradient(135deg,#40C057,#51CF66);color:white;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;flex-shrink:0;box-shadow:0 3px 10px rgba(64,192,87,0.25);">✓</div>
-        <div style="font-size:16px;font-weight:700;color:#495057;">담당자가 바뀌어도 인수인계가 쉽습니다</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== 카드뉴스 ===== -->
-<div style="background:linear-gradient(180deg,#F8F9FA,#EFF1F3 50%,#F8F9FA);padding:clamp(56px,8vw,100px) clamp(16px,4vw,24px);">
-  <div style="max-width:1040px;margin:0 auto;">
-    <div style="text-align:center;">
-      <div style="font-size:clamp(21px,3.5vw,34px);font-weight:700;line-height:1.45;margin-bottom:12px;">한눈에 보는 핵심</div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:16px;margin-top:48px;">
-      <div style="border-radius:20px;padding:36px 24px;text-align:center;min-height:240px;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(150deg,#3B5BDB,#4C6FE0,#5C7CFA);color:white;box-shadow:0 8px 32px rgba(59,91,219,0.25);position:relative;overflow:hidden;">
-        <div style="font-size:36px;margin-bottom:18px;">🖱️</div>
-        <div style="font-size:20px;font-weight:800;line-height:1.5;margin-bottom:8px;">발주는 실장이,<br>관리는 원장님이</div>
-        <div style="font-size:13px;opacity:0.6;">역할 분리로 효율 UP</div>
-      </div>
-      <div style="border-radius:20px;padding:36px 24px;text-align:center;min-height:240px;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(150deg,#141E3C,#1E2A5E,#2B3F7E);color:white;box-shadow:0 8px 32px rgba(30,42,94,0.25);position:relative;overflow:hidden;">
-        <div style="font-size:36px;margin-bottom:18px;">📋</div>
-        <div style="font-size:20px;font-weight:800;line-height:1.5;margin-bottom:8px;">발주 이력이<br>자동으로 쌓입니다</div>
-        <div style="font-size:13px;opacity:0.6;">따로 기록할 필요 없음</div>
-      </div>
-      <div style="border-radius:20px;padding:36px 24px;text-align:center;min-height:240px;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(150deg,#FF6B35,#FF8957,#FFA06B);color:white;box-shadow:0 8px 32px rgba(255,107,53,0.25);position:relative;overflow:hidden;">
-        <div style="font-size:36px;margin-bottom:18px;">⏱️</div>
-        <div style="font-size:20px;font-weight:800;line-height:1.5;margin-bottom:8px;">월말 정산 말고<br>실시간 확인</div>
-        <div style="font-size:13px;opacity:0.6;">지금 바로 재료비 확인</div>
-      </div>
-      <div style="border-radius:20px;padding:36px 24px;text-align:center;min-height:240px;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(150deg,#E8EDE4,#D5DDD0,#C2CFBB);color:#212529;border:2px solid rgba(255,255,255,0.5);box-shadow:0 8px 32px rgba(0,0,0,0.06);position:relative;overflow:hidden;">
-        <div style="font-size:36px;margin-bottom:18px;">🔧</div>
-        <div style="font-size:20px;font-weight:800;line-height:1.5;margin-bottom:8px;">재료 바꾸지 마세요<br>방식만 바꾸세요</div>
-        <div style="font-size:13px;opacity:0.6;">같은 재료, 발주 경로만 통합</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== PROCESS ===== -->
-<div style="background:linear-gradient(180deg,white,#F5F7FF 50%,white);padding:clamp(56px,8vw,100px) clamp(16px,4vw,24px);">
-  <div style="max-width:1040px;margin:0 auto;">
-    <div style="text-align:center;">
-      <div style="font-size:clamp(24px,4vw,34px);font-weight:900;background:linear-gradient(135deg,#3B5BDB,#5C7CFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;font-style:italic;letter-spacing:-1px;">Process</div>
-      <div style="font-size:clamp(21px,3.5vw,34px);font-weight:700;line-height:1.45;">시작은 간단합니다<br><b>3단계</b>면 충분합니다</div>
-    </div>
-
-    <div style="display:flex;align-items:center;justify-content:center;gap:0;margin-top:56px;flex-wrap:wrap;">
-      <!-- Step 1 -->
-      <div style="background:white;border-radius:24px;padding:40px 32px;text-align:center;flex:1;min-width:220px;max-width:280px;border:2px solid rgba(59,91,219,0.08);">
-        <div style="margin-bottom:20px;">
-          <div style="width:64px;height:64px;background:linear-gradient(135deg,#EDF2FF,#E0E8FF);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 10px;box-shadow:0 4px 12px rgba(59,91,219,0.08);">💬</div>
-          <div style="font-size:11px;font-weight:800;color:#3B5BDB;letter-spacing:1px;">STEP 1</div>
+<!-- ===== 실장 안심 ===== -->
+<section class="reassure-section">
+  <div class="section-inner">
+    <div class="reassure-box reveal">
+      <h3>실장님이 먼저<br>좋아하는 시스템입니다</h3>
+      <p class="rb-sub">재료 발주, 이제 스트레스 없이 클릭 한 번이면 끝</p>
+      <div class="reassure-items">
+        <div class="reassure-item">
+          <div class="ri-check">✓</div>
+          <div class="ri-text">전화 안 해도 발주가 됩니다</div>
         </div>
-        <h3 style="font-size:20px;font-weight:900;margin-bottom:10px;">문의</h3>
-        <p style="font-size:14px;color:#868E96;line-height:1.7;">전화 또는 카카오톡으로<br>간편하게 문의해주세요</p>
-      </div>
-
-      <!-- Arrow -->
-      <div style="padding:0 8px;flex-shrink:0;">
-        <svg width="48" height="24" viewBox="0 0 48 24" fill="none"><path d="M0 12h40m0 0l-8-8m8 8l-8 8" stroke="#3B5BDB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/></svg>
-      </div>
-
-      <!-- Step 2 (핵심) -->
-      <div style="background:linear-gradient(160deg,#F8F9FF,#EDF2FF);border-radius:24px;padding:40px 32px;text-align:center;flex:1;min-width:220px;max-width:280px;border:2px solid #3B5BDB;box-shadow:0 8px 32px rgba(59,91,219,0.12);position:relative;">
-        <span style="position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#3B5BDB,#5C7CFA);color:white;font-size:11px;font-weight:800;padding:4px 10px;border-radius:100px;">핵심</span>
-        <div style="margin-bottom:20px;">
-          <div style="width:64px;height:64px;background:linear-gradient(135deg,#3B5BDB,#5C7CFA);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 10px;box-shadow:0 6px 20px rgba(59,91,219,0.25);">📋</div>
-          <div style="font-size:11px;font-weight:800;color:#3B5BDB;letter-spacing:1px;">STEP 2</div>
+        <div class="reassure-item">
+          <div class="ri-check">✓</div>
+          <div class="ri-text">뭘 시켰는지 다시 찾을 필요 없습니다</div>
         </div>
-        <h3 style="font-size:20px;font-weight:900;margin-bottom:10px;">우리 치과 재료<br>등록 대행</h3>
-        <p style="font-size:14px;color:#868E96;line-height:1.7;">우리 치과에서 사용하는<br>재료들을 덴딜몰에<br><b style="color:#3B5BDB;font-weight:800;">무료로 등록</b>해드립니다</p>
-      </div>
-
-      <!-- Arrow -->
-      <div style="padding:0 8px;flex-shrink:0;">
-        <svg width="48" height="24" viewBox="0 0 48 24" fill="none"><path d="M0 12h40m0 0l-8-8m8 8l-8 8" stroke="#3B5BDB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/></svg>
-      </div>
-
-      <!-- Step 3 -->
-      <div style="background:white;border-radius:24px;padding:40px 32px;text-align:center;flex:1;min-width:220px;max-width:280px;border:2px solid rgba(59,91,219,0.08);">
-        <div style="margin-bottom:20px;">
-          <div style="width:64px;height:64px;background:linear-gradient(135deg,#EDF2FF,#E0E8FF);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 10px;box-shadow:0 4px 12px rgba(59,91,219,0.08);">🛒</div>
-          <div style="font-size:11px;font-weight:800;color:#3B5BDB;letter-spacing:1px;">STEP 3</div>
+        <div class="reassure-item">
+          <div class="ri-check">✓</div>
+          <div class="ri-text">월말 정리 없이 자동으로 깔끔하게 정리됩니다</div>
         </div>
-        <h3 style="font-size:20px;font-weight:900;margin-bottom:10px;">편리한 관리·구매</h3>
-        <p style="font-size:14px;color:#868E96;line-height:1.7;">클릭 한 번으로 발주하고<br>재료비를 실시간 관리하세요</p>
+        <div class="reassure-item">
+          <div class="ri-check">✓</div>
+          <div class="ri-text">담당자가 바뀌어도 인수인계가 쉽습니다</div>
+        </div>
       </div>
-    </div>
-
-    <div style="text-align:center;margin-top:48px;">
-      <p style="font-size:17px;color:#868E96;font-weight:500;">복잡한 설정 없이, <b style="background:linear-gradient(135deg,#3B5BDB,#5C7CFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;">문의 한 번</b>이면 시작됩니다</p>
     </div>
   </div>
-</div>
+</section>
+
+<!-- ===== CARD NEWS ===== -->
+<section class="cardnews-section">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-subtitle">한눈에 보는 핵심</div>
+    </div>
+    <div class="cardnews-grid">
+      <div class="cn-card reveal">
+        <span class="cn-num">01</span>
+        <div class="cn-icon">🖱️</div>
+        <div class="cn-title">발주는 실장이,<br>관리는 원장님이</div>
+        <div class="cn-sub">역할 분리로 효율 UP</div>
+      </div>
+      <div class="cn-card reveal">
+        <span class="cn-num">02</span>
+        <div class="cn-icon">📋</div>
+        <div class="cn-title">발주 이력이<br>자동으로 쌓입니다</div>
+        <div class="cn-sub">따로 기록할 필요 없음</div>
+      </div>
+      <div class="cn-card reveal">
+        <span class="cn-num">03</span>
+        <div class="cn-icon">⏱️</div>
+        <div class="cn-title">월말 정산 말고<br>실시간 확인</div>
+        <div class="cn-sub">지금 바로 재료비 확인</div>
+      </div>
+      <div class="cn-card reveal">
+        <span class="cn-num">04</span>
+        <div class="cn-icon">🔧</div>
+        <div class="cn-title">재료 바꾸지 마세요<br>방식만 바꾸세요</div>
+        <div class="cn-sub">같은 재료, 발주 경로만 통합</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 진행방법 SECTION ===== -->
+<section class="process-section">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label">Process</div>
+      <div class="section-subtitle">시작은 간단합니다<br><b>3단계</b>면 충분합니다</div>
+    </div>
+
+    <div class="process-flow reveal">
+      <div class="process-step">
+        <div class="ps-icon-wrap">
+          <div class="ps-icon">💬</div>
+          <div class="ps-num">STEP 1</div>
+        </div>
+        <h3>문의</h3>
+        <p>전화 또는 카카오톡으로<br>간편하게 문의해주세요</p>
+      </div>
+
+      <div class="process-arrow">
+        <svg width="48" height="24" viewBox="0 0 48 24" fill="none">
+          <path d="M0 12h40m0 0l-8-8m8 8l-8 8" stroke="var(--dendeal-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+        </svg>
+      </div>
+
+      <div class="process-step highlight">
+        <div class="ps-icon-wrap">
+          <div class="ps-icon">📋</div>
+          <div class="ps-num">STEP 2</div>
+        </div>
+        <h3>우리 치과 재료<br>등록 대행</h3>
+        <p>우리 치과에서 사용하는<br>재료들을 덴딜몰에<br><b>무료로 등록</b>해드립니다</p>
+      </div>
+
+      <div class="process-arrow">
+        <svg width="48" height="24" viewBox="0 0 48 24" fill="none">
+          <path d="M0 12h40m0 0l-8-8m8 8l-8 8" stroke="var(--dendeal-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+        </svg>
+      </div>
+
+      <div class="process-step">
+        <div class="ps-icon-wrap">
+          <div class="ps-icon">🛒</div>
+          <div class="ps-num">STEP 3</div>
+        </div>
+        <h3>편리한 관리·구매</h3>
+        <p>클릭 한 번으로 발주하고<br>재료비를 실시간 관리하세요</p>
+      </div>
+    </div>
+
+    <div class="process-bottom reveal">
+      <p>복잡한 설정 없이, <b>문의 한 번</b>이면 시작됩니다</p>
+    </div>
+  </div>
+</section>
 
 <!-- ===== CTA ===== -->
-<div style="background:linear-gradient(135deg,#3B5BDB,#3D60E0 30%,#4C6FE0 60%,#5C7CFA);padding:clamp(56px,8vw,90px) clamp(16px,4vw,24px);text-align:center;position:relative;overflow:hidden;">
-  <div style="position:relative;z-index:2;max-width:600px;margin:0 auto;">
-    <h2 style="font-size:clamp(22px,4vw,38px);font-weight:900;color:white;line-height:1.4;margin-bottom:12px;text-shadow:0 2px 16px rgba(0,0,0,0.1);">지출은 줄이고,<br>편리함은 올라간다</h2>
-    <p style="font-size:16px;color:rgba(255,255,255,0.6);margin-bottom:36px;">지금 쓰는 발주 방식만 말씀해주세요<br>바꿀 수 있는지부터 확인해드립니다</p>
-    
-    <!-- 카카오 버튼 -->
-    <a href="http://pf.kakao.com/_MYKhX/chat" target="_blank" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#FEE500;color:#3C1E1E;padding:18px 40px;border-radius:14px;font-size:18px;font-weight:800;text-decoration:none;box-shadow:0 6px 24px rgba(0,0,0,0.15);font-family:'Noto Sans KR',sans-serif;margin-bottom:36px;">💬 카카오톡으로 문의하기</a>
-    
-    <div style="display:flex;justify-content:center;gap:32px;flex-wrap:wrap;">
-      <div style="color:rgba(255,255,255,0.7);font-size:14px;">📞 상담 문의 : <b style="color:white;font-weight:800;">031-360-0419</b></div>
-      <a href="http://pf.kakao.com/_MYKhX/chat" target="_blank" style="color:rgba(255,255,255,0.7);font-size:14px;text-decoration:none;">💬 카카오 채널 : <b style="color:white;font-weight:800;">덴딜쇼핑몰</b></a>
-      <div style="color:rgba(255,255,255,0.7);font-size:14px;">🔍 네이버 검색 : <b style="color:white;font-weight:800;">덴딜쇼핑몰</b></div>
+<section class="cta-section" id="cta">
+  <div class="cta-inner reveal">
+    <h2>지출은 줄이고,<br>편리함은 올라간다</h2>
+    <p class="cta-sub">지금 쓰는 발주 방식만 말씀해주세요<br>바꿀 수 있는지부터 확인해드립니다</p>
+    <a href="http://pf.kakao.com/_MYKhX/chat" target="_blank" class="btn-kakao">💬 카카오톡으로 문의하기</a>
+    <div class="cta-contact">
+      <div class="cta-contact-item">📞 상담 문의 : <b>031-360-0419</b></div>
+      <a href="http://pf.kakao.com/_MYKhX/chat" target="_blank" class="cta-contact-item" style="text-decoration:none;">💬 카카오 채널 : <b>덴딜쇼핑몰</b></a>
+      <div class="cta-contact-item">🔍 네이버 검색 : <b>덴딜쇼핑몰</b></div>
     </div>
+    <p class="cta-note"></p>
   </div>
-</div>
+</section>
 
-<!-- ===== FOOTER ===== -->
-<div style="background:linear-gradient(180deg,#0F1629,#0A0F1E);padding:40px 24px;text-align:center;">
-  <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:8px;">
-    <div style="width:32px;height:32px;background:linear-gradient(135deg,#3B5BDB,#5C7CFA);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:10px;font-weight:900;">덴딜.</div>
-    <span style="font-size:16px;font-weight:300;color:rgba(255,255,255,0.5);letter-spacing:1px;">Mall</span>
+<footer>
+  <div class="footer-logo-wrap">
+    <div class="footer-icon">덴딜.</div>
+    <span class="footer-name">Mall</span>
   </div>
-  <p style="font-size:12px;color:rgba(255,255,255,0.2);">치과 재료 발주의 새로운 기준 · dendeal.kr</p>
-</div>
+  <p class="footer-text">치과 재료 발주의 새로운 기준 · dendeal.kr</p>
+</footer>
 
-</div>
-
-<!-- 모바일 반응형 (Before/After 세로 전환) -->
-<style>
-@media(max-width:768px){
-  #ba-grid{grid-template-columns:1fr !important;}
-  #ba-divider{flex-direction:row !important;width:auto !important;padding:10px 20px !important;background:linear-gradient(90deg,#F1F3F5,#E0E5F5,#EDF2FF) !important;}
-}
-</style>
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>

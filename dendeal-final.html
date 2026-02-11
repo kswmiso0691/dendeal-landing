@@ -180,6 +180,7 @@
   .mini-bar.highlight{background:linear-gradient(180deg,var(--red),var(--coral))}
   .mini-bar-label{font-size:clamp(5px,.7vw,7px);color:var(--g5)}
   .mini-bar-val{font-size:clamp(4px,.6vw,6px);color:var(--g5);font-weight:700}
+  .what-card-img{width:100%;max-width:180px;border-radius:clamp(12px,1.5vw,18px);margin:0 auto clamp(12px,1.5vw,18px);display:block;box-shadow:0 8px 28px rgba(0,0,0,.08)}
   .what-card h3{font-size:clamp(13px,1.6vw,18px);font-weight:900;color:var(--g9);margin-bottom:6px;margin-top:auto;position:relative;z-index:2}
 
   /* Transform mockup */
@@ -322,43 +323,9 @@
     .why-grid{grid-template-columns:repeat(2,1fr)}
     .what-grid{grid-template-columns:repeat(2,1fr);gap:10px}
     .what-card{padding:14px 10px 16px;border-radius:12px}
+    .what-card-img{max-width:100%;border-radius:10px}
     .what-card h3{font-size:13px;margin-bottom:4px}
     .what-card p{font-size:11px;line-height:1.45}
-    .phone-mockup{max-width:120px;aspect-ratio:auto;height:auto;border-width:2px;border-radius:12px;margin-bottom:8px}
-    .phone-mockup .phone-header{padding:5px 8px 4px}
-    .phone-mockup .phone-header span{font-size:7px}
-    .phone-mockup .phone-tabs span{padding:4px 0;font-size:6px}
-    .phone-body{padding:6px}
-    .phone-search .ps-btn{padding:3px 5px;font-size:6px}
-    .phone-search .ps-input{padding:3px 5px;font-size:6px}
-    .phone-search{gap:3px;margin-bottom:6px}
-    .phone-list-item{gap:4px;padding:4px 0}
-    .phone-list-item .pli-img{width:18px;height:18px;font-size:9px;border-radius:4px}
-    .phone-list-item .pli-name{font-size:6px}
-    .phone-list-item .pli-price{font-size:5px}
-    .phone-list-item .pli-btn{padding:2px 4px;font-size:5px}
-    .phone-cart-item{gap:5px;padding:5px 0}
-    .phone-cart-item .pci-name{font-size:6px}
-    .phone-cart-item .pci-price{font-size:5px}
-    .phone-cart-item .pci-qty span{width:12px;height:12px;font-size:6px}
-    .phone-stat-header .psh-value{font-size:13px}
-    .phone-stat-header .psh-label{font-size:6px}
-    .phone-stat-header .psh-count{font-size:6px}
-    .mini-chart{height:50px;padding:8px 4px 0}
-    .mini-bar-label{font-size:5px}
-    .mini-bar-val{font-size:4px}
-    .transform-mockup{gap:2px;flex:1;align-items:center}
-    .tf-paper{width:48px;padding:3px}
-    .tf-paper-title{font-size:5px;margin-bottom:3px}
-    .tf-paper-row{font-size:4px}
-    .tf-scribble{font-size:4px}
-    .tf-excel{width:48px;padding:3px}
-    .tf-excel-row{font-size:4px}
-    .tf-excel-label{font-size:4px}
-    .ex-cell{font-size:3.5px}
-    .tf-app{width:65px}
-    .tf-arrow-icon{width:16px;height:16px;font-size:8px}
-    .tf-x-mark{font-size:24px}
     .result-list{grid-template-columns:repeat(2,1fr)}
     .cardnews-grid{grid-template-columns:repeat(2,1fr)}
     .how-ba-unified{grid-template-columns:1fr}
@@ -543,189 +510,25 @@
 
     <div class="what-grid">
       <div class="what-card reveal">
-        <div class="phone-mockup">
-          <div class="phone-header">
-            <span>‹</span>
-            <span style="font-weight:800;">덴딜 Mall</span>
-            <span>🔔</span>
-          </div>
-          <div class="phone-tabs">
-            <span>쇼핑몰</span>
-            <span class="active">즐겨찾기</span>
-            <span>구매관리</span>
-            <span>통계</span>
-          </div>
-          <div class="phone-body">
-            <div class="phone-search">
-              <div class="ps-btn">구매 상품</div>
-              <div class="ps-input">검색</div>
-            </div>
-            <div style="font-size:8px;font-weight:800;color:var(--gray-700);padding:6px 0 4px;border-bottom:1px solid var(--gray-300);">진료재료 <span style="float:right;font-weight:500;color:var(--gray-500)">3개 품목</span></div>
-            <div class="phone-list-item">
-              <div class="pli-img">🦷</div>
-              <div class="pli-info">
-                <div class="pli-name">덴티칸 인상재 카트리지</div>
-                <div class="pli-price">₩5,000</div>
-              </div>
-              <div class="pli-actions">
-                <div class="pli-btn">삭제</div>
-                <div class="pli-btn">담기</div>
-              </div>
-            </div>
-            <div class="phone-list-item">
-              <div class="pli-img">🔩</div>
-              <div class="pli-info">
-                <div class="pli-name">덴티칸 에멜 특상 트레이</div>
-                <div class="pli-price">₩6,000</div>
-              </div>
-              <div class="pli-actions">
-                <div class="pli-btn">삭제</div>
-                <div class="pli-btn">담기</div>
-              </div>
-            </div>
-            <div class="phone-list-item">
-              <div class="pli-img">💊</div>
-              <div class="pli-info">
-                <div class="pli-name">에니젠 프로 (페리스)</div>
-                <div class="pli-price">₩42,000</div>
-              </div>
-              <div class="pli-actions">
-                <div class="pli-btn">삭제</div>
-                <div class="pli-btn">담기</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <img class="what-card-img" src="what 1.JPG" alt="자동 즐겨찾기 시스템">
         <h3>자동 즐겨찾기 시스템</h3>
         <p>한번 구매한 상품은 자동 저장<br>다시 검색하지 않아도 주문 가능</p>
       </div>
 
       <div class="what-card reveal">
-        <div class="phone-mockup">
-          <div class="phone-header">
-            <span>✕</span>
-            <span style="font-weight:800;color:var(--dendeal-blue);">장바구니</span>
-            <span></span>
-          </div>
-          <div class="phone-body" style="padding-top:16px;">
-            <div class="phone-cart-item">
-              <div class="pci-info"><div class="pci-name">페리스 실드</div><div class="pci-price">₩9,000</div></div>
-              <div class="pci-qty"><span>-</span><span>1</span><span>+</span></div>
-            </div>
-            <div class="phone-cart-item">
-              <div class="pci-info"><div class="pci-name">덴티칸 인상재 카트리지</div><div class="pci-price">₩5,000</div></div>
-              <div class="pci-qty"><span>-</span><span>1</span><span>+</span></div>
-            </div>
-            <div class="phone-cart-item">
-              <div class="pci-info"><div class="pci-name">덴티칸 에멜 특상 트레이</div><div class="pci-price">₩6,000</div></div>
-              <div class="pci-qty"><span>-</span><span>1</span><span>+</span></div>
-            </div>
-            <div style="text-align:right;padding:12px 0 0;border-top:1px solid var(--gray-300);margin-top:8px;">
-              <span style="font-size:8px;color:var(--gray-500);">합계</span>
-              <span style="font-size:12px;font-weight:900;color:var(--dendeal-blue);margin-left:6px;">₩20,000</span>
-            </div>
-          </div>
-        </div>
+        <img class="what-card-img" src="what 2.JPG" alt="재구매 시스템">
         <h3>재구매 시스템</h3>
         <p>이전 구매를 수량, 옵션만<br>조정해서 빠르게 주문</p>
       </div>
 
       <div class="what-card reveal">
-        <div class="transform-mockup">
-          <!-- Before: 종이/엑셀 -->
-          <div class="tf-before">
-            <div class="tf-paper">
-              <div class="tf-paper-title">📄 발주 대장</div>
-              <div class="tf-paper-row"><span>날짜</span><span>품목</span><span>수량</span></div>
-              <div class="tf-paper-row data"><span>1/15</span><span>페리스</span><span>2</span></div>
-              <div class="tf-paper-row data"><span>1/18</span><span>인상재</span><span>3</span></div>
-              <div class="tf-paper-row data"><span>1/22</span><span>스크류</span><span>1</span></div>
-              <div class="tf-scribble">✏️ 수기작성</div>
-            </div>
-            <div class="tf-excel">
-              <div class="tf-excel-bar">
-                <span class="ex-cell green">A</span><span class="ex-cell green">B</span><span class="ex-cell green">C</span><span class="ex-cell green">D</span>
-              </div>
-              <div class="tf-excel-row"><span>날짜</span><span>품목</span><span>단가</span><span>합계</span></div>
-              <div class="tf-excel-row"><span>01-15</span><span>페리스</span><span>9,000</span><span>18,000</span></div>
-              <div class="tf-excel-row"><span>01-22</span><span>스크류</span><span>36,000</span><span>36,000</span></div>
-              <div class="tf-excel-label">📊 엑셀정리</div>
-            </div>
-            <div class="tf-x-mark">✕</div>
-          </div>
-          <!-- Arrow -->
-          <div class="tf-arrow-wrap">
-            <div class="tf-arrow-icon">→</div>
-          </div>
-          <!-- After: 앱 -->
-          <div class="tf-after">
-            <div class="tf-app">
-              <div class="tf-app-header">
-                <span>덴딜 Mall</span>
-                <span class="tf-app-badge">✓</span>
-              </div>
-              <div class="tf-app-tab-bar">
-                <span class="active">구매관리</span>
-                <span>통계</span>
-              </div>
-              <div class="tf-app-item">
-                <div class="tf-app-dot blue"></div>
-                <div class="tf-app-info">
-                  <div class="tf-app-name">페리스 실드</div>
-                  <div class="tf-app-meta">01-15 · 2개 · ₩18,000</div>
-                </div>
-              </div>
-              <div class="tf-app-item">
-                <div class="tf-app-dot teal"></div>
-                <div class="tf-app-info">
-                  <div class="tf-app-name">덴티칸 인상재</div>
-                  <div class="tf-app-meta">01-18 · 3개 · ₩15,000</div>
-                </div>
-              </div>
-              <div class="tf-app-item">
-                <div class="tf-app-dot coral"></div>
-                <div class="tf-app-info">
-                  <div class="tf-app-name">임플란트 스크류</div>
-                  <div class="tf-app-meta">01-22 · 1개 · ₩36,000</div>
-                </div>
-              </div>
-              <div class="tf-app-total">
-                <span>총 합계</span>
-                <span class="tf-app-total-val">₩69,000</span>
-              </div>
-            </div>
-            <div class="tf-sparkle">✨</div>
-          </div>
-        </div>
+        <img class="what-card-img" src="what 3.JPG" alt="편리한 재료 관리">
         <h3>편리한 재료 관리</h3>
         <p>종이·엑셀 정리는 이제 그만!<br>앱에서 자동으로 깔끔하게</p>
       </div>
 
       <div class="what-card reveal">
-        <div class="phone-mockup">
-          <div class="phone-header">
-            <span></span>
-            <span style="font-weight:800;">통계</span>
-            <span>📥</span>
-          </div>
-          <div class="phone-body">
-            <div class="phone-stat-header">
-              <div class="psh-count">127건</div>
-              <div class="psh-value">5,360,000원</div>
-              <div class="psh-label">재료비 총 현황</div>
-            </div>
-            <div style="font-size:8px;font-weight:700;color:var(--gray-700);margin:8px 0 4px;">월별 전체 주문금액 통계</div>
-            <div class="mini-chart">
-              <div class="mini-bar-group"><div class="mini-bar-val">51만</div><div class="mini-bar" style="height:38%"></div><div class="mini-bar-label">7월</div></div>
-              <div class="mini-bar-group"><div class="mini-bar-val">74만</div><div class="mini-bar" style="height:52%"></div><div class="mini-bar-label">8월</div></div>
-              <div class="mini-bar-group"><div class="mini-bar-val">81만</div><div class="mini-bar" style="height:58%"></div><div class="mini-bar-label">9월</div></div>
-              <div class="mini-bar-group"><div class="mini-bar-val">91만</div><div class="mini-bar" style="height:65%"></div><div class="mini-bar-label">10월</div></div>
-              <div class="mini-bar-group"><div class="mini-bar-val">97만</div><div class="mini-bar" style="height:70%"></div><div class="mini-bar-label">11월</div></div>
-              <div class="mini-bar-group"><div class="mini-bar-val">124만</div><div class="mini-bar highlight" style="height:90%"></div><div class="mini-bar-label">12월</div></div>
-              <div class="mini-bar-group"><div class="mini-bar-val">48만</div><div class="mini-bar" style="height:34%"></div><div class="mini-bar-label">1월</div></div>
-            </div>
-          </div>
-        </div>
+        <img class="what-card-img" src="what 4.JPG" alt="구매 통계 관리">
         <h3>구매 통계 관리</h3>
         <p>월별 지출 분석으로<br>구매 통계를 한눈에 확인</p>
       </div>
